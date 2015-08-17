@@ -1,3 +1,5 @@
+<img src="http://static.iconsplace.com/icons/preview/orange/approval-256.png" align="right">
+
 # ~~This thing works!!!~~
 
 # RiftVision
