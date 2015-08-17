@@ -19,6 +19,7 @@ It's almost like MuhaVision 2.0 but mucho bettero. See why at yourslev. There ar
 
 ![](http://www.gifbin.com/bin/500824yu29.gif)
 ![](http://i.imgur.com/GgEaIiH.gif)
+![](http://giphy.com/gifs/barack-obama-joe-biden-a2mlpcNMB1aSY)
 
 
 <img src="http://i.imgur.com/aw0QuDg.gif">
