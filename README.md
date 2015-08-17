@@ -1,7 +1,7 @@
-<div style="float:right;"><img src="http://i.imgur.com/o6vYmRa.jpg" width=100></div>
+<div style="float:right;position: absolute;right: 0;"><img src="http://i.imgur.com/o6vYmRa.jpg" width=300></div>
 
-# RiftVision
+<big>RiftVision</big>
 It's almost like MuhaVision 2.0 but mucho bettero.
 
-# Licence
+<big>Licence</big>
 The code is distributet under the MIT licence.
