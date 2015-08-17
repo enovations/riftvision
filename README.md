@@ -1,6 +1,6 @@
 <img src="http://i.imgur.com/R6MlQh2.png" align="right">
 
-RIFT VISION
+### RIFT VISION
 
 It's almost like MuhaVision 2.0 but mucho bettero. See why at yourslev. There are some fiutures of the it:
 
@@ -11,6 +11,6 @@ It's almost like MuhaVision 2.0 but mucho bettero. See why at yourslev. There ar
 - [ ] windows phone support
 - [ ] stable release
 
-LICENSE
+### LICENSE
 
 The code is distributet under the MIT licence.
