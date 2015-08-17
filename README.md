@@ -11,6 +11,6 @@ It's almost like MuhaVision 2.0 but mucho bettero. See why at yourslev. There ar
 - [ ] windows phone support
 - [ ] stable release
 
-### LICENSE
+<img src="http://i.imgur.com/aw0QuDg.gif">
 
 The code is distributet under the MIT licence.
