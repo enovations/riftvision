@@ -1,6 +1,6 @@
 <img src="http://i.imgur.com/fnLxxaI.png" width=220 align="right">
 
-### RIFT VISION
+http://i.imgur.com/dezFC7R.gif
 
 It's almost like MuhaVision 2.0 but mucho bettero. See why at yourslev. There are some fiutures of the it:
 
