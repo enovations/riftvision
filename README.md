@@ -1,4 +1,4 @@
-<div style="float:right;position: absolute;right: 0;"><img src="http://i.imgur.com/o6vYmRa.jpg" width=300></div>
+<div style="float:right; position: absolute; right: 0;"><img  style="float:right; position: absolute; right: 0;" src="http://i.imgur.com/o6vYmRa.jpg" width=300></div>
 
 <big>RiftVision</big>
 It's almost like MuhaVision 2.0 but mucho bettero.
