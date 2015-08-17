@@ -1,4 +1,4 @@
-<img src="http://i.imgur.com/fnLxxaI.png" width=280 align="right">
+<img src="http://i.imgur.com/fnLxxaI.png" width=220 align="right">
 
 ### RIFT VISION
 
