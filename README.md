@@ -1,6 +1,6 @@
 <img src="http://static.iconsplace.com/icons/preview/orange/approval-256.png" align="right">
 
-<font size=7>RiftVision</font>
+<h2>RiftVision</h2>
 It's almost like MuhaVision 2.0 but mucho bettero. See why at yourslev. There are some fiutures of the it:
 
 - [x] flying
