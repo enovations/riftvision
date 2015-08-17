@@ -14,3 +14,7 @@ It's almost like MuhaVision 2.0 but mucho bettero. See why at yourslev. There ar
 <img src="http://i.imgur.com/aw0QuDg.gif">
 
 The code is distributet under the MIT licence.
+
+Hav fun!
+
+<img src="http://www.gifbin.com/bin/500824yu29.gif">
