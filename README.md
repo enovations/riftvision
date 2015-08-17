@@ -1,4 +1,4 @@
-<div style="float:right;"><img src="http://i.imgur.com/o6vYmRa.jpg"></div>
+<div style="float:right;"><img src="http://i.imgur.com/o6vYmRa.jpg" width=100></div>
 
 # RiftVision
 It's almost like MuhaVision 2.0 but mucho bettero.
