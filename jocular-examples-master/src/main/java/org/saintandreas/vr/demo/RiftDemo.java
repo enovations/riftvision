@@ -72,6 +72,8 @@ public class RiftDemo extends RiftApp {
     //SceneHelpers.renderSkybox();
     //SceneHelpers.renderFloor();
 
+    
+    
     MatrixStack mv = MatrixStack.MODELVIEW;
     mv.push();
     mv.translate(new Vector3f(0, eyeHeight, 0 )).scale(ipd);
