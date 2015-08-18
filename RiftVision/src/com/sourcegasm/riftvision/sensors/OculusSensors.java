@@ -13,9 +13,31 @@ import java.net.DatagramSocket;
  */
 public class OculusSensors {
 
+    public static double smoothedRool;
+    public static double smoothedPitch;
+    public static double smoothedYaw;
+
+    private static LowPassFilter rollLowFilter;
+    private static LowPassFilter pitchLowFilter;
+    private static LowPassFilter yawLowFilter;
+
+    private static HighPassFilter rollHighFilter;
+    private static HighPassFilter pitchHighFilter;
+    private static HighPassFilter yawHighFilter;
+
     private static Thread recieverThread = new Thread();
 
-    public static void startReceiving(){
+    public static void startReceiving() {
+        int lowPassSmoothing =2;
+        rollLowFilter = new LowPassFilter(lowPassSmoothing);
+        pitchLowFilter = new LowPassFilter(lowPassSmoothing);
+        yawLowFilter = new LowPassFilter(lowPassSmoothing);
+
+        int highPassSmoothing = 10;
+        rollHighFilter = new HighPassFilter(highPassSmoothing);
+        pitchHighFilter = new HighPassFilter(highPassSmoothing);
+        yawHighFilter = new HighPassFilter(highPassSmoothing);
+
         recieverThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -42,23 +64,39 @@ public class OculusSensors {
                     while (true) {
                         dsocket.receive(packet);
                         String line = new String(buffer, 0, packet.getLength());
-                        Euler euler = new Quaternion(line).toEuler();
-                        System.out.println(euler.roll + ", " + euler.pitch + ", " + euler.yaw);
                         packet.setLength(buffer.length);
+
+                        Euler euler = new Quaternion(line).toEuler();
+
+                        rollLowFilter.calculate(euler.roll);
+                        smoothedRool = rollLowFilter.smoothedValue;
+                        pitchLowFilter.calculate(euler.pitch);
+                        smoothedPitch = pitchLowFilter.smoothedValue;
+                        yawLowFilter.calculate(euler.yaw);
+                        smoothedYaw = pitchLowFilter.smoothedValue;
+
+                        /*rollLowFilter.calculate(euler.roll);
+                        rollHighFilter.calculate(rollLowFilter.smoothedValue);
+                        smoothedRool = rollHighFilter.smoothedValue;*/
+
+
+
+                        //System.out.println(smoothedRool + ", " + smoothedPitch + ", " + smoothedYaw + ", ");
+                        System.out.println(smoothedRool);
                     }
                 } catch (Exception e) {
-                    System.err.println(e);
+                    e.printStackTrace();
                 }
             }
         });
         recieverThread.start();
     }
 
-    public static void stopReceving(){
+    public static void stopReceving() {
         recieverThread.stop();
     }
 
-    private static void killPython(){
+    private static void killPython() {
         try {
             Runtime.getRuntime().exec("gksudo killall python");
         } catch (IOException e) {
