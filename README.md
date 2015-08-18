@@ -13,6 +13,9 @@ It's almost like MuhaVision 2.0 but mucho bettero. See why at yourslev. There ar
 - [ ] windows phone support
 - [ ] stable release
 
+Dependencies:
+-------------
+ - gksudo
 
 <img src="http://i.imgur.com/aw0QuDg.gif">
 
