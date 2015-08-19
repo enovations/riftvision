@@ -8,12 +8,12 @@ import com.codeminders.ardrone.util.BufferedImageVideoListener;
 
 public class RenderManager {
 	
-	public RenderManager(ARDrone drone, final RenderFrame frame){
+	public RenderManager(ARDrone drone, final RenderRiftWindow frame){
 		drone.addImageListener(new BufferedImageVideoListener() {
-
             @Override
             public void imageReceived(BufferedImage image) {
-            	frame.updateFrame(AdvancedRiftRenderingSystemTM.doComputation(image, frame.getWidth(), frame.getHeight()));
+            	System.out.println("got frame");
+            	frame.updateFrame(image);
             }
         });
 	}
