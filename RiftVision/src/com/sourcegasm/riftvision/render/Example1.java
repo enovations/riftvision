@@ -1,23 +1,10 @@
 package com.sourcegasm.riftvision.render;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
 
 public class Example1 {
 
@@ -39,7 +26,7 @@ public class Example1 {
 	    
 	    
 	    try {
-	    	bufImg = ImageIO.read(new File("sample.png"));
+	    	bufImg = ImageIO.read(new File("asdf.png"));
 	        
 	    }catch(IOException e){
 			System.out.println(e.getMessage());

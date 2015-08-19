@@ -28,7 +28,7 @@ public class OculusSensors {
     private static Thread recieverThread = new Thread();
 
     public static void startReceiving() {
-        int lowPassSmoothing =2;
+        double lowPassSmoothing =1;
         rollLowFilter = new LowPassFilter(lowPassSmoothing);
         pitchLowFilter = new LowPassFilter(lowPassSmoothing);
         yawLowFilter = new LowPassFilter(lowPassSmoothing);
@@ -56,7 +56,7 @@ public class OculusSensors {
                 }
 
                 try {
-                    int port = 1234;
+                    int port = 5000;
                     DatagramSocket dsocket = new DatagramSocket(port);
                     byte[] buffer = new byte[2048];
                     DatagramPacket packet = new DatagramPacket(buffer, buffer.length);

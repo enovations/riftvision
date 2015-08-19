@@ -7,9 +7,9 @@ public class LowPassFilter {
     private boolean first = true;
     public double smoothedValue;
     //private long lastUpdate;
-    public int smoothing;
+    public double smoothing;
 
-    public LowPassFilter(int smoothing){
+    public LowPassFilter(double smoothing){
         this.smoothing = smoothing;
     }
 
@@ -20,7 +20,8 @@ public class LowPassFilter {
             first = false;
             return newValue;
         }else {
-            smoothedValue += (10.0/20.0) * (newValue - smoothedValue) / (float) smoothing;
+            smoothedValue = ((smoothing-1)*smoothedValue+newValue)/smoothing;
+            //smoothedValue += (10.0/20.0) * (newValue - smoothedValue) / (float) smoothing;
             //lastUpdate = System.currentTimeMillis();
             return smoothedValue;
         }
