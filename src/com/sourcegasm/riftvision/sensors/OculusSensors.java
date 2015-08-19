@@ -50,7 +50,7 @@ public class OculusSensors {
                 }));
 
                 try {
-                    Runtime.getRuntime().exec("gksudo python " + currrentDir + "/../Sensors/mami.py");
+                    Runtime.getRuntime().exec("gksudo python " + currrentDir + "/../mami.py");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
