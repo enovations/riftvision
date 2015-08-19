@@ -33,6 +33,7 @@ public class AdvancedRiftRenderingSystemTM {
 		
 		BufferedImage layer1 = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
         layer1.getWritableTile(0, 0).setDataElements(0, 0, img.getWidth(), img.getHeight(), endPixels);
+        layer1.getGraphics().drawImage(new ImageIcon("./res/mask.png").getImage(), 0, 0, null);
         
         BufferedImage layer2 = new BufferedImage(img.getWidth()*LAYER2_RESOLUTION, img.getHeight()*LAYER2_RESOLUTION, BufferedImage.TYPE_INT_ARGB);
         if(navdata!=null){
@@ -42,8 +43,9 @@ public class AdvancedRiftRenderingSystemTM {
         	g.setColor(new Color(0,0,0,120));
         	g.fillRect(0, hosd-220, wosd, 40);
         	g.setColor(new Color(255,255,255,255));
-        	g.setFont(g.getFont().deriveFont(40.0f));
-        	g.drawImage(new ImageIcon("./res/batt_on.png").getImage(), 90, hosd-220, null);
+        	g.setFont(g.getFont().deriveFont(36.0f));
+        	g.drawImage(new ImageIcon("./res/batt_"+((navdata.getBattery()<15)?"off":"on")+".png").getImage(), 110, hosd-218, null);
+        	g.drawString(navdata.getBattery()+"%", 186, hosd-220+34);
         }
         
         BufferedImage layer2_bent = bendForOculus(layer2, img.getWidth()*LAYER2_RESOLUTION, img.getHeight()*LAYER2_RESOLUTION);
@@ -56,7 +58,7 @@ public class AdvancedRiftRenderingSystemTM {
         
         render.getGraphics().drawImage(layer2_bent, CALIBRATION_X+LAYER2_OFFSET, CALIBRATION_Y-10, w/2-CALIBRATION_X, h-CALIBRATION_Y*2, null);
         render.getGraphics().drawImage(layer2_bent, w/2-LAYER2_OFFSET, CALIBRATION_Y-10, w/2-CALIBRATION_X, h-CALIBRATION_Y*2, null);
-				
+        
 		return render;
 		
 	}
