@@ -33,11 +33,11 @@ public class RenderRiftWindow extends JFrame{
 	    	
 	    };
         renderPanel.setFocusable(true);
+        renderPanel.requestFocus();
         renderPanel.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
             }
-
             @Override
             public void keyPressed(KeyEvent e) {
                 CustomKeyListener.onKeyPressed(e);

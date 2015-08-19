@@ -13,8 +13,8 @@ public class Main {
     public static DroneController controller;
 
     public static void main(String[] args) throws IOException {
-        sensors = new OculusSensors();
-        sensors.startReceiving();
+        //sensors = new OculusSensors();
+        //sensors.startReceiving();
         RenderRiftWindow frame = new RenderRiftWindow();
         controller = new DroneController();
         RenderManager manager = new RenderManager(controller.getDrone(), frame);

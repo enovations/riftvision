@@ -18,6 +18,7 @@ public class CustomKeyListener {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+                System.out.println("takeoff");
                 break;
             case KeyEvent.VK_S:
                 try {
