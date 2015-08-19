@@ -8,7 +8,7 @@ public class AdvancedRiftRenderingSystemTM {
 	private final static int CALIBRATION_Y = 68;
 	private final static double CALIBRATION2 = -0.068731;
 	
-	public static BufferedImage doComputation(BufferedImage bufImg, int w, int h){
+	public static BufferedImage renderOculusVideoAndData(BufferedImage bufImg, int w, int h){
 		
 		BufferedImage img = new BufferedImage(bufImg.getWidth(), bufImg.getHeight(), BufferedImage.TYPE_INT_RGB);
         img.getGraphics().drawImage(bufImg, 0, 0, null);

@@ -17,7 +17,7 @@ public class Main {
         RenderManager manager = new RenderManager(controller.getDrone(), frame);
 
         while(true){
-            controller.getDrone().move((float) (sensors.getSmoothedRool()/90.0), 0, 0, 0);
+            controller.getDrone().move((float) (sensors.getSmoothedRool()/120.0), (float) (sensors.getSmoothedPitch()/120.0), 0, 0);
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {

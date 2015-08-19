@@ -29,7 +29,7 @@ public class RenderRiftWindow extends JFrame{
 	    	public void paintComponent(Graphics g){
 	    		Graphics2D g2d = (Graphics2D) g;
 	    		if(frame!=null)
-	    			g2d.drawImage(AdvancedRiftRenderingSystemTM.doComputation(frame, getWidth(), getHeight()), 0, 0, null);
+	    			g2d.drawImage(AdvancedRiftRenderingSystemTM.renderOculusVideoAndData(frame, getWidth(), getHeight()), 0, 0, null);
 	    	}
 	    	
 	    };
