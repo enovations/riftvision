@@ -13,27 +13,32 @@ import java.net.DatagramSocket;
  */
 public class OculusSensors {
 
-    public static double smoothedRool;
-    public static double smoothedPitch;
-    public static double smoothedYaw;
 
-    private static LowPassFilter rollLowFilter;
-    private static LowPassFilter pitchLowFilter;
-    private static LowPassFilter yawLowFilter;
+    private double rawRool;
+    private double rawPitch;
+    private double rawYaw;
 
-    private static HighPassFilter rollHighFilter;
-    private static HighPassFilter pitchHighFilter;
-    private static HighPassFilter yawHighFilter;
+    private double smoothedRool;
+    private double smoothedPitch;
+    private double smoothedYaw;
 
-    private static Thread recieverThread = new Thread();
+    private LowPassFilter rollLowFilter;
+    private LowPassFilter pitchLowFilter;
+    private LowPassFilter yawLowFilter;
 
-    public static void startReceiving() {
-        double lowPassSmoothing =1;
+    private HighPassFilter rollHighFilter;
+    private HighPassFilter pitchHighFilter;
+    private HighPassFilter yawHighFilter;
+
+    private Thread recieverThread = new Thread();
+
+    public void startReceiving() {
+        double lowPassSmoothing = 2;
         rollLowFilter = new LowPassFilter(lowPassSmoothing);
         pitchLowFilter = new LowPassFilter(lowPassSmoothing);
         yawLowFilter = new LowPassFilter(lowPassSmoothing);
 
-        int highPassSmoothing = 10;
+        double highPassSmoothing = 1 / 1.05;
         rollHighFilter = new HighPassFilter(highPassSmoothing);
         pitchHighFilter = new HighPassFilter(highPassSmoothing);
         yawHighFilter = new HighPassFilter(highPassSmoothing);
@@ -50,13 +55,13 @@ public class OculusSensors {
                 }));
 
                 try {
-                    Runtime.getRuntime().exec("gksudo python " + currrentDir + "/../mami.py");
+                    Runtime.getRuntime().exec("gksudo python " + currrentDir + "/mami.py");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 try {
-                    int port = 5000;
+                    int port = 1234;
                     DatagramSocket dsocket = new DatagramSocket(port);
                     byte[] buffer = new byte[2048];
                     DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
@@ -67,22 +72,22 @@ public class OculusSensors {
                         packet.setLength(buffer.length);
 
                         Euler euler = new Quaternion(line).toEuler();
+                        rawRool = euler.roll;
+                        rawPitch = euler.pitch;
+                        rawYaw = euler.yaw;
+
 
                         rollLowFilter.calculate(euler.roll);
-                        smoothedRool = rollLowFilter.smoothedValue;
-                        pitchLowFilter.calculate(euler.pitch);
-                        smoothedPitch = pitchLowFilter.smoothedValue;
-                        yawLowFilter.calculate(euler.yaw);
-                        smoothedYaw = pitchLowFilter.smoothedValue;
-
-                        /*rollLowFilter.calculate(euler.roll);
                         rollHighFilter.calculate(rollLowFilter.smoothedValue);
-                        smoothedRool = rollHighFilter.smoothedValue;*/
+                        smoothedRool = rollHighFilter.smoothedValue;
 
+                        pitchLowFilter.calculate(euler.pitch);
+                        pitchHighFilter.calculate(pitchLowFilter.smoothedValue);
+                        smoothedPitch = pitchHighFilter.smoothedValue;
 
-
-                        //System.out.println(smoothedRool + ", " + smoothedPitch + ", " + smoothedYaw + ", ");
-                        System.out.println(smoothedRool);
+                        yawLowFilter.calculate(euler.yaw);
+                        yawHighFilter.calculate(yawLowFilter.smoothedValue);
+                        smoothedYaw = yawHighFilter.smoothedValue;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -92,11 +97,35 @@ public class OculusSensors {
         recieverThread.start();
     }
 
-    public static void stopReceving() {
+    public double getSmoothedRool() {
+        return smoothedRool;
+    }
+
+    public double getSmoothedPitch() {
+        return smoothedPitch;
+    }
+
+    public double getSmoothedYaw() {
+        return smoothedYaw;
+    }
+
+    public double getRawRool() {
+        return rawRool;
+    }
+
+    public double getRawPitch() {
+        return rawPitch;
+    }
+
+    public double getRawYaw() {
+        return rawYaw;
+    }
+
+    public void stopReceving() {
         recieverThread.stop();
     }
 
-    private static void killPython() {
+    public static void killPython() {
         try {
             Runtime.getRuntime().exec("gksudo killall python");
         } catch (IOException e) {

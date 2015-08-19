@@ -6,19 +6,24 @@ package com.sourcegasm.riftvision.sensors;
 public class HighPassFilter {
     private boolean first = true;
     public double smoothedValue;
-    public int smoothing;
+    public double smoothing;
 
-    public HighPassFilter(int smoothing){
+    private double lastInputValue;
+
+    public HighPassFilter(double smoothing){
         this.smoothing = smoothing;
     }
 
     public double calculate(double newValue) {
         if(first) {
+            lastInputValue = newValue;
             smoothedValue = newValue;
             first = false;
             return newValue;
         }else {
-            smoothedValue = newValue - (smoothedValue + (newValue - smoothedValue));
+//            α := RC / (RC + dt)
+            smoothedValue = smoothing * (smoothedValue + newValue - lastInputValue);
+            lastInputValue = newValue;
             return smoothedValue;
         }
     }
