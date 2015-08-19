@@ -1,4 +1,4 @@
-package com.sourcegasm.advancedriftrenderingsystem;
+package com.sourcegasm.riftvision.render;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 

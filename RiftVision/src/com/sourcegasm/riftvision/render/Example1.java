@@ -1,4 +1,4 @@
-package com.sourcegasm.advancedriftrenderingsystem;
+package com.sourcegasm.riftvision.render;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
