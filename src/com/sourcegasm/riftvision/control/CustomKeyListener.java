@@ -9,8 +9,7 @@ import java.io.IOException;
  * Created by zigapk on 8/19/15.
  */
 public class CustomKeyListener {
-    public static void onKeyPressed(KeyEvent e) {
-        DroneController controller = Main.controller;
+    public static void onKeyPressed(KeyEvent e, DroneController controller) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
                 try {
