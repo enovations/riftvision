@@ -19,6 +19,6 @@ public class Main {
         mainController.sensors = sensors;
         RenderRiftWindow frame = new RenderRiftWindow(mainController);
         RenderManager manager = new RenderManager(droneController, frame);
-        //coment to fore commit
+        //coment to force commit
     }
 }
