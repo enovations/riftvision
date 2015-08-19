@@ -9,14 +9,20 @@ import java.io.IOException;
 
 public class Main {
 
-    public static OculusSensors sensors;
-    public static DroneController controller;
-
     public static void main(String[] args) throws IOException {
-        //sensors = new OculusSensors();
-        //sensors.startReceiving();
-        RenderRiftWindow frame = new RenderRiftWindow();
-        controller = new DroneController();
+        OculusSensors sensors = new OculusSensors();
+        sensors.startReceiving();
+    	DroneController controller = new DroneController();
+        RenderRiftWindow frame = new RenderRiftWindow(controller);
         RenderManager manager = new RenderManager(controller.getDrone(), frame);
+
+        while(true){
+            controller.getDrone().move((float) (sensors.getSmoothedRool()/90.0), 0, 0, 0);
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
