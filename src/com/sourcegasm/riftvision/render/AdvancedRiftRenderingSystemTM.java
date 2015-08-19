@@ -4,8 +4,9 @@ import java.awt.image.BufferedImage;
 
 public class AdvancedRiftRenderingSystemTM {
 	
-	private final static int CALIBRATION = 50;
-	private final static double CALIBRATION2 = -0.078731;
+	private final static int CALIBRATION_X = 62;
+	private final static int CALIBRATION_Y = 68;
+	private final static double CALIBRATION2 = -0.068731;
 	
 	public static BufferedImage doComputation(BufferedImage bufImg, int w, int h){
 		
@@ -24,8 +25,8 @@ public class AdvancedRiftRenderingSystemTM {
         BufferedImage render = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = (Graphics2D) render.getGraphics();
         
-		g2d.drawImage(edgesImage, CALIBRATION, 0, w/2-CALIBRATION, h, null);
-		g2d.drawImage(edgesImage, w/2, 0, w/2-CALIBRATION, h, null);
+		g2d.drawImage(edgesImage, CALIBRATION_X, CALIBRATION_Y-10, w/2-CALIBRATION_X, h-CALIBRATION_Y*2, null);
+		g2d.drawImage(edgesImage, w/2, CALIBRATION_Y-10, w/2-CALIBRATION_X, h-CALIBRATION_Y*2, null);
 				
 		return render;
 		
