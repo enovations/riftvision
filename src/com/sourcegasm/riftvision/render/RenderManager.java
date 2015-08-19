@@ -1,10 +1,9 @@
 package com.sourcegasm.riftvision.render;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
-
 import com.codeminders.ardrone.ARDrone;
 import com.codeminders.ardrone.util.BufferedImageVideoListener;
+
+import java.awt.image.BufferedImage;
 
 public class RenderManager {
 	
@@ -12,7 +11,6 @@ public class RenderManager {
 		drone.addImageListener(new BufferedImageVideoListener() {
             @Override
             public void imageReceived(BufferedImage image) {
-            	System.out.println("got frame");
             	frame.updateFrame(image);
             }
         });

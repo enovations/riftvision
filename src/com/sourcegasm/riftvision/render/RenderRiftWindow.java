@@ -1,14 +1,12 @@
 package com.sourcegasm.riftvision.render;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.image.BufferedImage;
+import com.sourcegasm.riftvision.control.CustomKeyListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
 public class RenderRiftWindow extends JFrame{
 
@@ -34,7 +32,22 @@ public class RenderRiftWindow extends JFrame{
 	    	}
 	    	
 	    };
-	    add(renderPanel);
+        renderPanel.setFocusable(true);
+        renderPanel.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                CustomKeyListener.onKeyPressed(e);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
+        add(renderPanel);
 	    setVisible(true);
 	}
 	
@@ -42,5 +55,4 @@ public class RenderRiftWindow extends JFrame{
 		this.frame = frame;
 		renderPanel.repaint();
 	}
-	
 }
