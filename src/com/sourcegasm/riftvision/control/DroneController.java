@@ -41,5 +41,9 @@ public class DroneController {
     public ARDrone getDrone() {
         return drone;
     }
+    
+    public NavData getNavData() {
+        return data;
+    }
 
 }

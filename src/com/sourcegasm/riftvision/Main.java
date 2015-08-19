@@ -11,10 +11,10 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         OculusSensors sensors = new OculusSensors();
-        sensors.startReceiving();
+        //sensors.startReceiving();
     	DroneController controller = new DroneController();
         RenderRiftWindow frame = new RenderRiftWindow(controller);
-        RenderManager manager = new RenderManager(controller.getDrone(), frame);
+        RenderManager manager = new RenderManager(controller, frame);
 
         while(true){
             controller.getDrone().move((float) (sensors.getSmoothedRool()/120.0), (float) (sensors.getSmoothedPitch()/120.0), 0, 0);

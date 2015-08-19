@@ -1,5 +1,6 @@
 package com.sourcegasm.riftvision.render;
 
+import com.codeminders.ardrone.NavData;
 import com.sourcegasm.riftvision.control.CustomKeyListener;
 import com.sourcegasm.riftvision.control.DroneController;
 
@@ -15,6 +16,7 @@ public class RenderRiftWindow extends JFrame{
 	
 	BufferedImage frame = null;
 	JPanel renderPanel = null;
+	NavData navdata = null;
 	
 	public RenderRiftWindow(final DroneController controller) {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -29,7 +31,7 @@ public class RenderRiftWindow extends JFrame{
 	    	public void paintComponent(Graphics g){
 	    		Graphics2D g2d = (Graphics2D) g;
 	    		if(frame!=null)
-	    			g2d.drawImage(AdvancedRiftRenderingSystemTM.renderOculusVideoAndData(frame, getWidth(), getHeight()), 0, 0, null);
+	    			g2d.drawImage(AdvancedRiftRenderingSystemTM.renderOculusVideoAndData(frame, getWidth(), getHeight(), navdata), 0, 0, null);
 	    	}
 	    	
 	    };
@@ -52,8 +54,9 @@ public class RenderRiftWindow extends JFrame{
 	    setVisible(true);
 	}
 	
-	public void updateFrame(BufferedImage frame){
+	public void updateFrame(BufferedImage frame, NavData navdata){
 		this.frame = frame;
+		this.navdata = navdata;
 		renderPanel.repaint();
 	}
 }
