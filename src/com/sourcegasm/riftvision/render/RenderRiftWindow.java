@@ -2,7 +2,7 @@ package com.sourcegasm.riftvision.render;
 
 import com.codeminders.ardrone.NavData;
 import com.sourcegasm.riftvision.control.CustomKeyListener;
-import com.sourcegasm.riftvision.control.DroneController;
+import com.sourcegasm.riftvision.control.MainController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +18,7 @@ public class RenderRiftWindow extends JFrame{
 	JPanel renderPanel = null;
 	NavData navdata = null;
 	
-	public RenderRiftWindow(final DroneController controller) {
+	public RenderRiftWindow(final MainController mainController) {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
@@ -43,7 +43,7 @@ public class RenderRiftWindow extends JFrame{
             }
             @Override
             public void keyPressed(KeyEvent e) {
-                CustomKeyListener.onKeyPressed(e, controller);
+                CustomKeyListener.onKeyPressed(e, mainController);
             }
 
             @Override
