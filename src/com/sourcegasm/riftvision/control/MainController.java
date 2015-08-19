@@ -1,8 +1,8 @@
 package com.sourcegasm.riftvision.control;
 
-import java.io.IOException;
-
 import com.sourcegasm.riftvision.sensors.OculusSensors;
+
+import java.io.IOException;
 
 /**
  * Created by klemen on 19.8.2015. ^selfish
@@ -27,7 +27,7 @@ public class MainController {
 						// droneController.getDrone().move(roll, pitch, (float)
 						// heightController.getHeightMove(), (float)
 						// yawController.getYawMove(droneController, sensors));
-						droneController.getDrone().move(roll, pitch, (float) heightController.getHeightMove(), 0);
+						droneController.getDrone().move(-roll, pitch, (float) heightController.getHeightMove(), 0);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -49,6 +49,7 @@ public class MainController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		heightController.reset();
 		thread.stop();
 	}
 

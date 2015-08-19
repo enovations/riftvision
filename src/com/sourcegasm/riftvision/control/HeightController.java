@@ -12,7 +12,12 @@ public class HeightController {
 			--up;
 		else if (up < 0)
 			++up;
+		//TODO: max values, up/down
 		return result;
+	}
+
+	public void reset(){
+		up = 0;
 	}
 
 	public void increaseHeightMove() {
