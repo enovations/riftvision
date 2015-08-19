@@ -40,14 +40,14 @@ public class AdvancedRiftRenderingSystemTM {
 			int wosd = img.getWidth() * LAYER2_RESOLUTION;
 			int hosd = img.getHeight() * LAYER2_RESOLUTION;
 			Graphics g = layer2.getGraphics();
-			g.setColor(new Color(0, 0, 0, 120));
+			g.setColor(new Color(navdata.isEmergency()?255:0, 0, 0, 120));
 			g.fillRect(0, hosd - 220, wosd, 40);
 			g.setColor(new Color(255, 255, 255, 255));
 			g.setFont(g.getFont().deriveFont(36.0f));
 			g.drawImage(new ImageIcon("./res/batt_" + ((navdata.getBattery() < 15) ? "off" : "on") + ".png").getImage(),110, hosd - 218, null);
 			g.drawString(navdata.getBattery() + "%", 186, hosd - 220 + 34);
 			g.drawImage(new ImageIcon("./res/h.png").getImage(), 290, hosd - 218, null);
-			g.drawString(((int) navdata.getAltitude()) + "cm", 340, hosd - 220 + 34);
+			g.drawString(((int) (navdata.getAltitude()*100.0f)) + "cm", 340, hosd - 220 + 34);
 		}
 
 		BufferedImage layer2_bent = bendForOculus(layer2, img.getWidth() * LAYER2_RESOLUTION,
