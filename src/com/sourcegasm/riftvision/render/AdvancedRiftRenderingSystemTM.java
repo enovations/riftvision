@@ -46,10 +46,11 @@ public class AdvancedRiftRenderingSystemTM {
         	g.setFont(g.getFont().deriveFont(36.0f));
         	g.drawImage(new ImageIcon("./res/batt_"+((navdata.getBattery()<15)?"off":"on")+".png").getImage(), 110, hosd-218, null);
         	g.drawString(navdata.getBattery()+"%", 186, hosd-220+34);
+        	g.drawImage(new ImageIcon("./res/h.png").getImage(), 290, hosd-218, null);
+        	g.drawString(((int)navdata.getAltitude())+"cm", 330, hosd-220+34);
         }
         
         BufferedImage layer2_bent = bendForOculus(layer2, img.getWidth()*LAYER2_RESOLUTION, img.getHeight()*LAYER2_RESOLUTION);
-        	
         	
         BufferedImage render = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         
