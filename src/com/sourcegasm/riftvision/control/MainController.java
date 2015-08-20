@@ -8,41 +8,57 @@ import java.io.IOException;
  * Created by klemen on 19.8.2015. ^selfish
  */
 public class MainController {
-    public OculusSensors sensors;
+    public OculusSensors oculusSensors;
     private Thread thread;
     public DroneController droneController;
     private HeightController heightController = new HeightController();
+    private YawController yawController = new YawController();
     boolean contiune = false;
 
     public void startController() {
         heightController = new HeightController();
-        YawController yawController = new YawController();
+        yawController.setZero(droneController, oculusSensors);
         contiune = true;
         thread = new Thread(() -> {
             while (contiune) {
-                float roll = (float) (ExpoController.getExpo(sensors.getSmoothedRool()) / 90.0);
-                float pitch = (float) (ExpoController.getExpo(sensors.getSmoothedPitch()) / 90.0);
-                /*float roll = (float) (ExpoController.getExpo(sensors.getRawRool()) / 90.0);
-                float pitch = (float) (ExpoController.getExpo(sensors.getRawPitch()) / 90.0);*/
-                try {
-                    /*double oculusYaw = sensors.getSmoothedYaw();
-                    double droneYaw = droneController.getNavData().getYaw();
-                    double yawMove = yawController.getYawMove(droneController, sensors);
-                    System.out.println(oculusYaw + ", " + droneYaw + ", " + yawMove);*/
-                    droneController.getDrone().move(roll, -pitch, (float) heightController.getHeightMove(), 0);
-                    System.out.println(roll+", "+pitch);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    Thread.currentThread().sleep(50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                controllerLiteration(true);
             }
         });
         thread.start();
+    }
+
+    private void controllerLiteration(boolean debug){
+        try {
+            droneController.getDrone().move(0, 0, 0, 0);
+        } catch (IOException e) {}
+
+        //if(!debug)
+            //while (!droneController.getNavData().isFlying()){}
+
+        float roll = (float) (ExpoController.getExpo(oculusSensors.getSmoothedRool()) / 90.0);
+        float pitch = (float) (ExpoController.getExpo(oculusSensors.getSmoothedPitch()) / 90.0);
+
+        if(debug){
+            double oculusYaw = oculusSensors.getSmoothedYaw();
+            double droneYaw = droneController.getNavData().getYaw();
+            double yawMove = yawController.getYawMove(droneController, oculusSensors);
+            System.out.println(oculusYaw + ", " + droneYaw + ", " + yawMove);
+        }else {
+            try {
+                double yawMove = yawController.getYawMove(droneController, oculusSensors);
+                droneController.getDrone().move(roll, -pitch, (float) heightController.getHeightMove(), (float) -yawMove);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            int wait = 50;
+            if(debug) wait = 150;
+            Thread.currentThread().sleep(wait);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void stopController() {
@@ -57,6 +73,9 @@ public class MainController {
 
     public DroneController getDroneController() {
         return droneController;
+    }
+    public YawController getYawController(){
+        return yawController;
     }
 
     public HeightController getHeightController() {
