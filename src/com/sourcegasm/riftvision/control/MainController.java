@@ -19,9 +19,12 @@ public class MainController {
         heightController = new HeightController();
         yawController.setZero(droneController, oculusSensors);
         contiune = true;
-        thread = new Thread(() -> {
-            while (contiune) {
-                controllerLiteration(true);
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (contiune) {
+                    controllerLiteration(false);
+                }
             }
         });
         thread.start();
