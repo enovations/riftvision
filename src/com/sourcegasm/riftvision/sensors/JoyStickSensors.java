@@ -1,6 +1,5 @@
 package com.sourcegasm.riftvision.sensors;
 
-import com.sourcegasm.riftvision.control.DroneController;
 import com.sourcegasm.riftvision.control.ExpoController;
 import com.sourcegasm.riftvision.control.MainController;
 
@@ -47,8 +46,8 @@ public class JoyStickSensors {
 							rawPitch = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[3].trim())));
 							rawRoll = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[2].trim())));
 							rawYaw = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[0].trim()))));
-							rawHeight = (float) ((Integer.parseInt(mami_array[1].trim()))) / -300.0f;
-						}
+                            rawHeight = (float) ((Integer.parseInt(mami_array[1].trim()))) / -180.0;
+                        }
 												
 					}
 				} catch (Exception e) {
@@ -69,8 +68,8 @@ public class JoyStickSensors {
 						
 						DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
 						dsocket.receive(packet);
-						
-						System.out.println(new String(packet.getData()));
+
+                        //System.out.println(new String(packet.getData()));
 
 						
                         String[] mami_array = new String(packet.getData())
