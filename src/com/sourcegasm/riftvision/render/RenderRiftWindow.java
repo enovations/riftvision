@@ -59,7 +59,6 @@ public class RenderRiftWindow extends JFrame {
 			}
 		});
 		add(renderPanel);
-		setVisible(true);
 		renderPanel.setRequestFocusEnabled(true);
 		renderPanel.requestFocus();
 		renderPanel.requestFocus();
