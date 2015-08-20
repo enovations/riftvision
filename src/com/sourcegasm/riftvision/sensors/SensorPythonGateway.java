@@ -7,7 +7,7 @@ public class SensorPythonGateway {
 
 	public static void killPython() {
 		try {
-			Runtime.getRuntime().exec("gksudo killall python");
+			Runtime.getRuntime().exec("gksudo killall -9 python");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -23,7 +23,7 @@ public class SensorPythonGateway {
 		try {
 			String currrentDir = new File(".").getAbsolutePath().replaceAll("/\\.", "");
             Runtime.getRuntime().exec("gksudo python " + currrentDir + "/mami.py &");
-            Runtime.getRuntime().exec("gksudo python " + currrentDir + "/zigatova_mami.py &");
+            Runtime.getRuntime().exec("python " + currrentDir + "/zigatova_mami.py &");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

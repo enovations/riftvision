@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		SensorPythonGateway.startPythonScripts();
+		//SensorPythonGateway.startPythonScripts();
 		OculusSensors oculusSensors = new OculusSensors();
 		oculusSensors.startReceiving();
 		JoyStickSensors joystickSensors = new JoyStickSensors();

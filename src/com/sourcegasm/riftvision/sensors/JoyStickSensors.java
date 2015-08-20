@@ -28,27 +28,24 @@ public class JoyStickSensors {
 			public void run() {
 
 				try {
-					int port = 1235;
-					DatagramSocket dsocket = new DatagramSocket(port);
-					byte[] buffer = new byte[2048];
-					DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+					DatagramSocket dsocket = new DatagramSocket(1235);
 
 					while (true) {
+						
+						DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
 						dsocket.receive(packet);
 
 						String[] mami_array = new String(packet.getData()).split("\\;");
-
-						if (mami_array.length > 1) {
-
-							rawPitch = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[1].trim())));
-
-							rawRoll = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[0].trim())));
-
-							rawYaw = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[2].trim()))) / 4.7);
-
-							rawHeight = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[3].trim()))) / 4.7);
-
+						
+						if (mami_array.length == 4) {
+							rawPitch = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[3].trim())));
+							rawRoll = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[2].trim())));
+							rawYaw = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[0].trim()))));
+							rawHeight = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[1].trim()))));	
 						}
+						
+						System.out.println(new String(packet.getData()));
+						
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
