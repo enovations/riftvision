@@ -121,7 +121,8 @@ public class MainController {
     }
 
     public void setControlMode(ControlModes mode) {
-        //works only if not already flying!!!
-        if (!droneController.getNavData().isFlying()) controlMode = mode;
+        stopController();
+        controlMode = mode;
+        startController();
     }
 }
