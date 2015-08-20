@@ -1,12 +1,10 @@
 package com.sourcegasm.riftvision.sensors;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-
 import com.sourcegasm.riftvision.helper.Euler;
 import com.sourcegasm.riftvision.helper.Quaternion;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 
 /**
  * Created by klemen on 18.8.2015.
@@ -48,10 +46,11 @@ public class OculusSensors {
 				try {
 					int port = 1234;
 					DatagramSocket dsocket = new DatagramSocket(port);
-					byte[] buffer = new byte[2048];
-					DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+
 
 					while (true) {
+						byte[] buffer = new byte[2048];
+						DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 						dsocket.receive(packet);
 						String line = new String(buffer, 0, packet.getLength());
 						packet.setLength(buffer.length);

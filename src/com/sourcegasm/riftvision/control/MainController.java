@@ -31,12 +31,6 @@ public class MainController {
     }
 
     private void controllerLiteration(boolean debug){
-        try {
-            droneController.getDrone().move(0, 0, 0, 0);
-        } catch (IOException e) {}
-
-        //if(!debug)
-            //while (!droneController.getNavData().isFlying()){}
 
         float roll = (float) (ExpoController.getExpo(oculusSensors.getSmoothedRool()) / 90.0);
         float pitch = (float) (ExpoController.getExpo(oculusSensors.getSmoothedPitch()) / 90.0);
@@ -49,7 +43,8 @@ public class MainController {
         }else {
             try {
                 double yawMove = yawController.getYawMove(droneController, oculusSensors);
-                droneController.getDrone().move(roll, -pitch, (float) heightController.getHeightMove(), (float) -yawMove);
+                //System.out.println(yawMove);
+                droneController.getDrone().move(roll, -pitch, (float) heightController.getHeightMove(), (float)yawMove);
             } catch (IOException e) {
                 e.printStackTrace();
             }
