@@ -9,7 +9,7 @@ public class YawController {
 	public double getYawMove(DroneController droneController, OculusSensors sensors) {
 		double droneYaw = droneController.getNavData().getYaw();
 		double oculusYaw = sensors.getSmoothedYaw();
-		double result = droneYaw - oculusYaw;
+		double result = oculusYaw - droneYaw;
 		if (result > 180)
 			result -= 360;
 		else if (result < -180)
