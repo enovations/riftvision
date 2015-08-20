@@ -1,20 +1,14 @@
 package com.sourcegasm.riftvision.render;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-
 import com.codeminders.ardrone.NavData;
 import com.sourcegasm.riftvision.control.CustomKeyListener;
 import com.sourcegasm.riftvision.control.MainController;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
 public class RenderRiftWindow extends JFrame {
 
@@ -27,7 +21,7 @@ public class RenderRiftWindow extends JFrame {
 	public RenderRiftWindow(final MainController mainController) {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setUndecorated(true);
-		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices().length-1];
+		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
 		device.setFullScreenWindow(this);
 		renderPanel = new JPanel() {
 
