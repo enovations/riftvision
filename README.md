@@ -14,7 +14,8 @@ It's almost like MuhaVision 2.0 but mucho bettero. See why at yourslev. There ar
 - [ ] stable release
 
 ![](http://www.auplod.com/u/opauld5f883.gif)
- - gksudo
+ - gksudo (if you don't already have it)
+ - PyGame Python library (Linux: sudo apt-get install python-pygame)
 
 ![](http://i.imgur.com/aw0QuDg.gif)
 
