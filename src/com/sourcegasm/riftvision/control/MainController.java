@@ -142,6 +142,7 @@ public class MainController {
     public void setControlMode(ControlModes mode) {
         stopController();
         controlMode = mode;
+        System.out.println();
         startController();
     }
 }

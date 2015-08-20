@@ -85,6 +85,29 @@ public class JoyStickSensors {
 				                    e1.printStackTrace();
 				                }
 								droneController.startController();
+							}else if (Integer.parseInt(mami_array[7].trim()) == 1) {
+								droneController.stopController();
+				                try {
+				                	droneController.getDroneController().getDrone().land();
+				                } catch (IOException e1) {
+				                    e1.printStackTrace();
+				                }
+							}else if (Integer.parseInt(mami_array[1].trim()) == 1) {
+								try {
+									droneController.getDroneController().getDrone().trim();
+				                } catch (IOException e1) {
+				                    e1.printStackTrace();
+				                }
+							}else if (Integer.parseInt(mami_array[2].trim()) == 1) {
+								try {
+									droneController.getDroneController().getDrone().clearEmergencySignal();
+				                } catch (IOException e1) {
+				                    e1.printStackTrace();
+				                }
+							}else if (Integer.parseInt(mami_array[5].trim()) == 1) {
+								droneController.setControlMode(droneController.getNextMode());
+							}else if (Integer.parseInt(mami_array[4].trim()) == 1) {
+								droneController.setControlMode(droneController.getPreviousMode());
 							}
 							
 						}
