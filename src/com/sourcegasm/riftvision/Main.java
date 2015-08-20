@@ -22,6 +22,7 @@ public class Main {
 		MainController mainController = new MainController();
 		mainController.droneController = droneController;
 		mainController.oculusSensors = oculus_sensors;
+        mainController.startController();
 
 		RenderRiftWindow frame = new RenderRiftWindow(mainController);
 		new RenderManager(droneController, frame);
