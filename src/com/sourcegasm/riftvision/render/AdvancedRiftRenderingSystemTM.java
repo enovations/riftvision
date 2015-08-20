@@ -2,6 +2,7 @@ package com.sourcegasm.riftvision.render;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -36,16 +37,22 @@ public class AdvancedRiftRenderingSystemTM {
 
 		BufferedImage layer2 = new BufferedImage(img.getWidth() * LAYER2_RESOLUTION,
 				img.getHeight() * LAYER2_RESOLUTION, BufferedImage.TYPE_INT_ARGB);
+		
 		if (navdata != null) {
 			int wosd = img.getWidth() * LAYER2_RESOLUTION;
 			int hosd = img.getHeight() * LAYER2_RESOLUTION;
-			Graphics g = layer2.getGraphics();
+			Graphics2D g = (Graphics2D) layer2.getGraphics();
 			
-			g.setColor(new Color(navdata.isEmergency()?255:0, 0, 0, 110));
+			g.setColor(new Color(navdata.isEmergency()?255:0, 0, 0, 50));
 			g.fillRect(0, hosd - 220, wosd, 40);
+			g.setColor(new Color(255, 255, 255, 150));
+			g.drawLine(0, hosd - 220-1, wosd, hosd - 220-1);
+			g.drawLine(0, hosd - 220+41, wosd, hosd - 220+41);
+			g.drawLine(0, hosd - 220-2, wosd, hosd - 220-2);
+			g.drawLine(0, hosd - 220+42, wosd, hosd - 220+42);
 			g.setColor(new Color(255, 255, 255, 255));
 			g.setFont(g.getFont().deriveFont(36.0f));
-			g.drawImage(new ImageIcon("./res/batt_" + ((navdata.getBattery() < 15) ? "off" : "on") + ".png").getImage(),120, hosd - 218, null);
+			g.drawImage(new ImageIcon("./res/batt_" + ((navdata.getBattery() < 25) ? "off" : "on") + ".png").getImage(),120, hosd - 218, null);
 			g.drawString(navdata.getBattery() + "%", 196, hosd - 220 + 34);
 			g.drawImage(new ImageIcon("./res/h.png").getImage(), 312, hosd - 218, null);
 			g.drawString(((int) (navdata.getAltitude()*100.0f)) + "cm", 358, hosd - 220 + 34);
@@ -60,10 +67,16 @@ public class AdvancedRiftRenderingSystemTM {
 			if(!navdata.isFlying())
 				g.drawString("Press \"LEFT\" key to take off", 190, 370);
 			
+			g.setColor(new Color(0, 0, 0, 90));
+			g.fillRect(wosd-320+50, 130, wosd-(wosd-320+50), 100);		
+			g.rotate(Math.toRadians(navdata.getYaw()), wosd-320+50, 130+50);
+			g.drawImage(new ImageIcon("./res/rotate.png").getImage(), wosd-320, 130, null);
 		}
 
 		BufferedImage layer2_bent = bendForOculus(layer2, img.getWidth() * LAYER2_RESOLUTION,
 				img.getHeight() * LAYER2_RESOLUTION);
+		
+		layer2_bent.getGraphics().drawImage(new ImageIcon("./res/mask.png").getImage(), 0, 0, img.getWidth() * LAYER2_RESOLUTION,img.getHeight() * LAYER2_RESOLUTION, null);
 
 		BufferedImage render = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
 
