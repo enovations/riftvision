@@ -60,6 +60,8 @@ public class JoyStickSensors {
 						
 						DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
 						dsocket.receive(packet);
+						
+						System.out.println(new String(packet.getData()));
 
 						/*
                         String[] mami_array = new String(packet.getData())
