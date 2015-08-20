@@ -26,21 +26,39 @@ public class JoyStickSensors {
 			public void run() {
 
 				try {
-					int port = 1234;
+					int port = 1235;
 					DatagramSocket dsocket = new DatagramSocket(port);
 					byte[] buffer = new byte[2048];
 					DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 
-					while (true) {
+					/*while (true) {
 						dsocket.receive(packet);
-						String line = new String(buffer, 0, packet.getLength());
-						packet.setLength(buffer.length);
 
-						Euler euler = new Quaternion(line).toEuler();
-						rawRool = euler.roll;
-						rawPitch = euler.pitch;
-						rawYaw = euler.yaw;
-					}
+						String[] mami_array = new String(packet.getData()).split("\\;");
+
+						if (mami_array.length > 1) {
+
+							if (visual.global_main.flightMode.getMode() != FlightMode.eMode.TAG_MODE)
+								pitch = (float) (ExpoController.getExpo(Integer
+										.parseInt(mami_array[1].trim())));
+
+							roll = (float) (ExpoController.getExpo(Integer
+									.parseInt(mami_array[0].trim())));
+
+							if (visual.global_main.flightMode.getMode() != FlightMode.eMode.TAG_MODE)
+								yaw = (float) (ExpoController.getExpo((Integer
+										.parseInt(mami_array[2].trim()))) / 4.7);
+
+							int mamih = Integer.parseInt(mami_array[3].trim());
+							if (mamih == 2)
+								height = -0.28f;
+							else if (mamih == -1)
+								height = 0.28f;
+							else
+								height = 0;
+
+						}
+					}*/
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

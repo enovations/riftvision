@@ -14,16 +14,17 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		SensorPythonGateway.startPythonScripts();
-		OculusSensors oculus_sensors = new OculusSensors();
-		oculus_sensors.startReceiving();
-		JoyStickSensors joystick_sensors = new JoyStickSensors();
-		joystick_sensors.startReceiving();
+		OculusSensors oculusSensors = new OculusSensors();
+		oculusSensors.startReceiving();
+		JoyStickSensors joystickSensors = new JoyStickSensors();
+		joystickSensors.startReceiving();
 		DroneController droneController = new DroneController();
 		MainController mainController = new MainController();
 		mainController.droneController = droneController;
-		mainController.oculusSensors = oculus_sensors;
+		mainController.oculusSensors = oculusSensors;
 
 		RenderRiftWindow frame = new RenderRiftWindow(mainController);
+		//frame.showFrame();
 		new RenderManager(droneController, frame);
 	}
 }

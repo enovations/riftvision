@@ -21,8 +21,6 @@ public class RenderRiftWindow extends JFrame {
 	public RenderRiftWindow(final MainController mainController) {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setUndecorated(true);
-		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
-		device.setFullScreenWindow(this);
 		renderPanel = new JPanel() {
 
 			private static final long serialVersionUID = 1L;
@@ -63,4 +61,10 @@ public class RenderRiftWindow extends JFrame {
 		this.navdata = navdata;
 		renderPanel.repaint();
 	}
+	
+	public void showFrame(){
+		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
+		device.setFullScreenWindow(this);
+	}
+	
 }
