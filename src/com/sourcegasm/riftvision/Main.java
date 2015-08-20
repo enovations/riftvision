@@ -2,6 +2,7 @@ package com.sourcegasm.riftvision;
 
 import com.sourcegasm.riftvision.control.DroneController;
 import com.sourcegasm.riftvision.control.MainController;
+import com.sourcegasm.riftvision.opengl.OpenGLWindow;
 import com.sourcegasm.riftvision.render.RenderManager;
 import com.sourcegasm.riftvision.render.RenderRiftWindow;
 import com.sourcegasm.riftvision.sensors.JoyStickSensors;
@@ -22,9 +23,10 @@ public class Main {
 		mainController.oculusSensors = oculusSensors;
 		mainController.joyStickSensors = joystickSensors;
 
-		RenderRiftWindow frame = new RenderRiftWindow(mainController);
-        frame.showFrame();
-        
+		OpenGLWindow frame = new OpenGLWindow();
+		frame.start();
+				
 		new RenderManager(droneController, frame);
+		
 	}
 }

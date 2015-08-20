@@ -1,4 +1,4 @@
-package com.theccode.opengl;
+package com.sourcegasm.riftvision.opengl;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;

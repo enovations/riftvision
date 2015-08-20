@@ -6,6 +6,7 @@ import java.io.IOException;
 /**
  * Created by zigapk on 8/19/15.
  */
+@Deprecated
 public class CustomKeyListener {
     public static void onKeyPressed(KeyEvent e, MainController mainController) {
         switch (e.getKeyCode()) {

@@ -1,4 +1,4 @@
-package com.theccode.opengl;
+package com.sourcegasm.riftvision.opengl;
 
 import java.util.ArrayList;
 
@@ -106,7 +106,6 @@ public class MeshMaker {
 		
 		for(int y = 0; y < SIZE * 2; ++y) {
 			for(int x = 0; x < SIZE; ++x) {
-				System.out.println(x + " " + y);
 				
 				indices.add(y * (SIZE + 1) + x);
 				indices.add(y * (SIZE + 1)+ SIZE + x + 1);
@@ -116,8 +115,6 @@ public class MeshMaker {
 				indices.add(y * (SIZE + 1)+ SIZE + x + 2);
 			}
 		}
-		
-		System.out.println();
 		
 		int[] result = new int[indices.size()];
 

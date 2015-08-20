@@ -1,4 +1,4 @@
-package com.theccode.opengl;
+package com.sourcegasm.riftvision.opengl;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -1,4 +1,4 @@
-package com.theccode.opengl;
+package com.sourcegasm.riftvision.opengl;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -12,24 +12,17 @@ import java.awt.image.BufferedImage;
 
 import org.lwjgl.opengl.GLContext;
 
-public class Main {
+import com.codeminders.ardrone.NavData;
+
+public class OpenGLWindow {
 	
 	public boolean running = true;
 	
 	private long window;
 	
 	private int width = 1280, height = 800;
-	
-	private Model leftSide, rightSide;
-	
-	public static void main(String[] args) {
-		/*for(float i : MeshMaker.createLeftMesh()) {
-			System.out.println(i);
-		}*/
-		
-		Main game = new Main();
-		game.start();
-	}
+
+	public Model leftSide, rightSide;
 	
 	public void start() {
 		running = true;
@@ -39,10 +32,7 @@ public class Main {
 		long delta = 0;
 		float interval = 1000f/30f;
 		
-		long timer = System.currentTimeMillis();
-		int ups = 0, fps = 0;
-		
-		while(running) {
+		/*while(running) {
 			long now = System.currentTimeMillis();
 			delta += now - startTime;
 			startTime = now;
@@ -50,22 +40,13 @@ public class Main {
 			while(delta >= interval) {
 				update();
 				delta -= interval;
-				++ups;
 			}
 			render();
-			++fps;
-			
-			if(System.currentTimeMillis() - timer >= 1000) {
-				System.out.println("ups: " + ups + " | fps: " + fps);
-				ups = 0;
-				fps = 0;
-				timer = System.currentTimeMillis();
-			}
 			
 			if(glfwWindowShouldClose(window) == GL_TRUE) {
 				running = false;
 			}
-		}
+		}*/
 	}
 	
 	public void init() {
@@ -74,7 +55,7 @@ public class Main {
 		}
 		
 		glfwDefaultWindowHints();
-		glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -92,41 +73,14 @@ public class Main {
 		GLContext.createFromCurrent();
 		
 		glClearColor(0f, 0f, 0f, 1f);
-	
-		
-//		float[] leftVertices = {
-//				-1f, -1f, 0f,
-//				 0f, -1f, 0f,
-//				 0f,  1f, 0f,
-//				-1f,  1f, 0f
-//		};
-//		
-//		float[] rightVertices = {
-//				0f, -1f, 0f,
-//				1f, -1f, 0f,
-//				1f,  1f, 0f,
-//				0f,  1f, 0f
-//		};
-		
-//		int[] indices = {
-//				0, 2, 3,
-//				0, 1, 2
-//		};
-//		
-//		float[] textureCoords = {
-//				 0f, 1f,
-//				 1f, 1f,
-//				 1f, 0f,
-//				 0f, 0f
-//		};
-		
-		BufferedImage texture = com.theccode.opengl.TextureLoader.loadImage("res/image.png");
+
+		BufferedImage texture = TextureLoader.loadImage("res/grid.png");
 		
 		int[] indices = MeshMaker.indices();
 		float[] textureCoords = MeshMaker.textureCoords();
-		
-		leftSide = new Model(/*MeshMaker.distortMesh(*/MeshMaker.leftMesh()/*, true)*/, indices, textureCoords, texture, "shaders/vertexShaderLeft.txt", "shaders/fragmentShader.txt");
-		rightSide = new Model(/*MeshMaker.distortMesh(*/MeshMaker.rightMesh()/*, false)*/, indices, textureCoords, texture, "shaders/vertexShaderRight.txt", "shaders/fragmentShader.txt");
+
+		leftSide = new Model(MeshMaker.leftMesh(), indices, textureCoords, texture, "shaders/vertexShaderLeft.txt", "shaders/fragmentShader.txt");
+		rightSide = new Model(MeshMaker.rightMesh(), indices, textureCoords, texture, "shaders/vertexShaderRight.txt", "shaders/fragmentShader.txt");
 	}
 	
 	public void update() {
@@ -144,7 +98,6 @@ public class Main {
 		glBindVertexArray(leftSide.vao);
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
-		//GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, leftSide.textureID);
 		glDrawElements(GL_TRIANGLES, leftSide.size, GL_UNSIGNED_INT, 0);
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -161,7 +114,6 @@ public class Main {
 		glBindVertexArray(rightSide.vao);
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
-		//GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, rightSide.textureID);
 		glDrawElements(GL_TRIANGLES, rightSide.size, GL_UNSIGNED_INT, 0);
 		glBindTexture(GL_TEXTURE_2D, 0);

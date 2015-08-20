@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
+@Deprecated
 public class RenderRiftWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
