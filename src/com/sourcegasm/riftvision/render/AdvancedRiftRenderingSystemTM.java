@@ -56,7 +56,9 @@ public class AdvancedRiftRenderingSystemTM {
 			g.drawImage(new ImageIcon("./res/logo.png").getImage(),410, hosd - 150, null);
 			
 			g.setFont(g.getFont().deriveFont(42.0f));
-			g.drawString("Press \"LEFT\" key to take off", 190, 370);
+			
+			if(!navdata.isFlying())
+				g.drawString("Press \"LEFT\" key to take off", 190, 370);
 			
 		}
 
