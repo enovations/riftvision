@@ -23,15 +23,15 @@ public class MainController {
 				while (true) {
 					float roll = (float) (ExpoController.getExpo(sensors.getSmoothedRool()) / 90.0);
 					float pitch = (float) (ExpoController.getExpo(sensors.getSmoothedPitch()) / 90.0);
-					//try {
+					try {
 						double oculusYaw = sensors.getSmoothedYaw();
                         double droneYaw = droneController.getNavData().getYaw();
                         double yawMove = yawController.getYawMove(droneController, sensors);
                         System.out.println(oculusYaw+", "+droneYaw+", "+yawMove);
-						//droneController.getDrone().move(-roll, pitch, (float) heightController.getHeightMove(), 0);
-					/*} catch (IOException e) {
+						droneController.getDrone().move(-roll, pitch, (float) heightController.getHeightMove(), 0);
+					} catch (IOException e) {
 						e.printStackTrace();
-					}*/
+					}
 					try {
 						Thread.currentThread();
 						Thread.sleep(20);

@@ -46,8 +46,8 @@ public class AdvancedRiftRenderingSystemTM {
 			g.setFont(g.getFont().deriveFont(36.0f));
 			g.drawImage(new ImageIcon("./res/batt_" + ((navdata.getBattery() < 15) ? "off" : "on") + ".png").getImage(),120, hosd - 218, null);
 			g.drawString(navdata.getBattery() + "%", 196, hosd - 220 + 34);
-			g.drawImage(new ImageIcon("./res/h.png").getImage(), 300, hosd - 218, null);
-			g.drawString(((int) (navdata.getAltitude()*100.0f)) + "cm", 350, hosd - 220 + 34);
+			g.drawImage(new ImageIcon("./res/h.png").getImage(), 312, hosd - 218, null);
+			g.drawString(((int) (navdata.getAltitude()*100.0f)) + "cm", 358, hosd - 220 + 34);
 			g.drawImage(new ImageIcon("./res/" + ((navdata.isFlying()) ? "on" : "off") + ".png").getImage(),490, hosd - 218, null);
 			g.drawImage(new ImageIcon("./res/roll.png").getImage(),560, hosd - 218, null);
 			g.drawString((int) (navdata.getRoll()) + "° # " + ((int)navdata.getPitch()) + "°", 610, hosd - 220 + 34);

@@ -12,14 +12,14 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		OculusSensors sensors = new OculusSensors();
-		//sensors.startReceiving();
+		sensors.startReceiving();
 		DroneController droneController = new DroneController();
 		MainController mainController = new MainController();
 		mainController.droneController = droneController;
 		mainController.sensors = sensors;
 
 		//debuging
-		mainController.startController(droneController);
+		//mainController.startController(droneController);
 
 		RenderRiftWindow frame = new RenderRiftWindow(mainController);
 		new RenderManager(droneController, frame);
