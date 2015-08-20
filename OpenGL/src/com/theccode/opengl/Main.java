@@ -91,39 +91,42 @@ public class Main {
 		
 		GLContext.createFromCurrent();
 		
-		glClearColor(1f, 0f, 1f, 1f);
+		glClearColor(0f, 0f, 0f, 1f);
 	
 		
-		float[] leftVertices = {
-				-1f, -1f, 0f,
-				 0f, -1f, 0f,
-				 0f,  1f, 0f,
-				-1f,  1f, 0f
-		};
+//		float[] leftVertices = {
+//				-1f, -1f, 0f,
+//				 0f, -1f, 0f,
+//				 0f,  1f, 0f,
+//				-1f,  1f, 0f
+//		};
+//		
+//		float[] rightVertices = {
+//				0f, -1f, 0f,
+//				1f, -1f, 0f,
+//				1f,  1f, 0f,
+//				0f,  1f, 0f
+//		};
 		
-		float[] rightVertices = {
-				0f, -1f, 0f,
-				1f, -1f, 0f,
-				1f,  1f, 0f,
-				0f,  1f, 0f
-		};
-		
-		int[] indices = {
-				0, 2, 3,
-				0, 1, 2
-		};
-		
-		float[] textureCoords = {
-				 0f, 1f,
-				 1f, 1f,
-				 1f, 0f,
-				 0f, 0f
-		};
+//		int[] indices = {
+//				0, 2, 3,
+//				0, 1, 2
+//		};
+//		
+//		float[] textureCoords = {
+//				 0f, 1f,
+//				 1f, 1f,
+//				 1f, 0f,
+//				 0f, 0f
+//		};
 		
 		BufferedImage texture = com.theccode.opengl.TextureLoader.loadImage("res/image.png");
 		
-		leftSide = new Model(MeshMaker.leftMesh(), MeshMaker.indices(), MeshMaker.textureCoords(), texture, "shaders/vertexShader.txt", "shaders/fragmentShader.txt");
-		rightSide = new Model(rightVertices, indices, textureCoords, texture, "shaders/vertexShader.txt", "shaders/fragmentShader.txt");
+		int[] indices = MeshMaker.indices();
+		float[] textureCoords = MeshMaker.textureCoords();
+		
+		leftSide = new Model(/*MeshMaker.distortMesh(*/MeshMaker.leftMesh()/*, true)*/, indices, textureCoords, texture, "shaders/vertexShaderLeft.txt", "shaders/fragmentShader.txt");
+		rightSide = new Model(/*MeshMaker.distortMesh(*/MeshMaker.rightMesh()/*, false)*/, indices, textureCoords, texture, "shaders/vertexShaderRight.txt", "shaders/fragmentShader.txt");
 	}
 	
 	public void update() {
