@@ -22,8 +22,16 @@ public class MainController {
     	heightController = new HeightController();
         yawController.setZero(droneController, oculusSensors);
         contiune = true;
-    	
-        switch (controlMode) {
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (contiune) {
+                    oculusOnlyControllerLiteration();
+                }
+            }
+        });
+        thread.start();
+        /*switch (controlMode) {
             case OculusOnly:
             	
                 thread = new Thread(new Runnable() {
@@ -41,7 +49,7 @@ public class MainController {
                 break;
             case JoystickOnly:
                 break;
-        }
+        }*/
     }
 
     private void oculusOnlyControllerLiteration() {
@@ -142,7 +150,7 @@ public class MainController {
     public void setControlMode(ControlModes mode) {
         stopController();
         controlMode = mode;
-        System.out.println();
+        System.out.println(controlMode);
         startController();
     }
 }
