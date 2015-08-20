@@ -20,6 +20,7 @@ public class JoyStickSensors {
 	private double rawHeight;
 
 	private Thread recieverThread = new Thread();
+	private Thread recieverThread2 = new Thread();
 
 	public void startReceiving() {
 
@@ -43,7 +44,7 @@ public class JoyStickSensors {
 							rawYaw = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[0].trim()))));
 							rawHeight = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[1].trim()))));	
 						}
-						
+												
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,6 +52,26 @@ public class JoyStickSensors {
 			}
 		});
 		recieverThread.start();
+		
+		recieverThread2 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+
+				try {
+					DatagramSocket dsocket = new DatagramSocket(1236);
+
+					while (true) {
+						
+						DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
+						dsocket.receive(packet);
+												
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		recieverThread2.start();
 	}
 
 	public double getRawRool() {

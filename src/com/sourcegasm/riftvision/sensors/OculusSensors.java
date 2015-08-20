@@ -60,7 +60,7 @@ public class OculusSensors {
 						rawPitch = euler.pitch;
 						rawYaw = euler.yaw;
 
-						rollLowFilter.calculate(euler.roll);
+						/*rollLowFilter.calculate(euler.roll);
 						rollHighFilter.calculate(rollLowFilter.smoothedValue);
 						smoothedRool = rollHighFilter.smoothedValue;
 
@@ -70,7 +70,16 @@ public class OculusSensors {
 
 						yawLowFilter.calculate(euler.yaw);
 						yawHighFilter.calculate(yawLowFilter.smoothedValue);
-						smoothedYaw = yawHighFilter.smoothedValue;
+						smoothedYaw = yawHighFilter.smoothedValue;*/
+						
+						rollLowFilter.calculate(euler.roll);
+						smoothedRool = rollLowFilter.smoothedValue;
+						
+						pitchLowFilter.calculate(euler.pitch);
+						smoothedPitch = pitchLowFilter.smoothedValue;
+
+						yawLowFilter.calculate(euler.yaw);
+						smoothedYaw = yawLowFilter.smoothedValue;
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

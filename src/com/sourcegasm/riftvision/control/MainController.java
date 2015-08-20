@@ -45,6 +45,7 @@ public class MainController {
                 double yawMove = yawController.getYawMove(droneController, oculusSensors);
                 //System.out.println(yawMove);
                 droneController.getDrone().move(roll, -pitch, (float) heightController.getHeightMove(), (float)yawMove);
+                //droneController.getDrone().move(0, -pitch, (float) heightController.getHeightMove(), (float)yawMove);
             } catch (IOException e) {
                 e.printStackTrace();
             }
