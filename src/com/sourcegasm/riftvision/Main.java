@@ -18,7 +18,7 @@ public class Main {
 		mainController.droneController = droneController;
 		mainController.sensors = sensors;
 
-		//debug
+		//debuging
 		mainController.startController(droneController);
 
 		RenderRiftWindow frame = new RenderRiftWindow(mainController);
