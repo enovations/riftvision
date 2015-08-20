@@ -44,8 +44,6 @@ public class JoyStickSensors {
 							rawHeight = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[1].trim()))));	
 						}
 						
-						System.out.println(new String(packet.getData()));
-						
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

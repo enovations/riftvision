@@ -6,14 +6,12 @@ import com.sourcegasm.riftvision.render.RenderManager;
 import com.sourcegasm.riftvision.render.RenderRiftWindow;
 import com.sourcegasm.riftvision.sensors.JoyStickSensors;
 import com.sourcegasm.riftvision.sensors.OculusSensors;
-import com.sourcegasm.riftvision.sensors.SensorPythonGateway;
 
 import java.io.IOException;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		//SensorPythonGateway.startPythonScripts();
 		OculusSensors oculusSensors = new OculusSensors();
 		oculusSensors.startReceiving();
 		JoyStickSensors joystickSensors = new JoyStickSensors();
@@ -24,7 +22,7 @@ public class Main {
 		mainController.oculusSensors = oculusSensors;
 
 		RenderRiftWindow frame = new RenderRiftWindow(mainController);
-		frame.showFrame();
+		//frame.showFrame();
 		new RenderManager(droneController, frame);
 	}
 }
