@@ -47,7 +47,7 @@ public class JoyStickSensors {
 							rawPitch = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[3].trim())));
 							rawRoll = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[2].trim())));
 							rawYaw = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[0].trim()))));
-							rawHeight = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[1].trim()))));	
+							rawHeight = (float) ((Integer.parseInt(mami_array[1].trim()))) / -300.0f;
 						}
 												
 					}
@@ -132,6 +132,10 @@ public class JoyStickSensors {
 
 	public double getRawYaw() {
 		return rawYaw;
+	}
+	
+	public double getRawHeight(){
+		return rawHeight;
 	}
 
 }

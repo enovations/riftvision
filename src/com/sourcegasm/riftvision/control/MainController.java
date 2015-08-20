@@ -1,6 +1,7 @@
 package com.sourcegasm.riftvision.control;
 
 import com.sourcegasm.riftvision.helper.ControlModes;
+import com.sourcegasm.riftvision.sensors.JoyStickSensors;
 import com.sourcegasm.riftvision.sensors.OculusSensors;
 
 import java.io.IOException;
@@ -9,7 +10,10 @@ import java.io.IOException;
  * Created by klemen on 19.8.2015. ^selfish
  */
 public class MainController {
+	
     public OculusSensors oculusSensors;
+    public JoyStickSensors joyStickSensors;
+    
     private Thread thread;
     public DroneController droneController;
     private HeightController heightController = new HeightController();
@@ -19,25 +23,13 @@ public class MainController {
 
     public void startController() {
 
-    	/*heightController = new HeightController();
-        yawController.setZero(droneController, oculusSensors);*/
-
         heightController = new HeightController();
         yawController.setZero(droneController, oculusSensors);
-        contiune = true;
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (contiune) {
-                    oculusOnlyControllerLiteration();
-                }
-            }
-        });
-        thread.start();
 
-        /*switch (controlMode) {
+        switch (controlMode) {
             case OculusOnly:
             	
+            	contiune = true;
                 thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -49,13 +41,103 @@ public class MainController {
                 thread.start();
                 
                 break;
+                
             case OculusYaw:
+            	
+            	contiune = true;
+                thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (contiune) {
+                        	oculusYawControllerLiteration();
+                        }
+                    }
+                });
+                thread.start();
+            	
                 break;
+                
+            case OculusYawPitch:
+            	
+            	contiune = true;
+                thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (contiune) {
+                        	oculusYawPitchControllerLiteration();
+                        }
+                    }
+                });
+                thread.start();
+            	
+                break;
+                
             case JoystickOnly:
+            	
+            	contiune = true;
+                thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (contiune) {
+                        	joysitckOnlyControllerLiteration();
+                        }
+                    }
+                });
+                thread.start();
+            	
                 break;
-        }*/
+        }
     }
+    
+    private void joysitckOnlyControllerLiteration() {
+    	
+            try {
+                droneController.getDrone().move((float)joyStickSensors.getRawRool(), (float)joyStickSensors.getRawPitch(), (float)joyStickSensors.getRawHeight(), (float)joyStickSensors.getRawYaw());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    	
+    }
+    
+    private void oculusYawControllerLiteration() {
+
+    	double yaw = yawController.getYawMove(droneController, oculusSensors);
+            try {
+            	droneController.getDrone().move((float)joyStickSensors.getRawRool(), (float)joyStickSensors.getRawPitch(), (float)joyStickSensors.getRawHeight(), (float)yaw);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void oculusYawPitchControllerLiteration() {
+
+        float pitch = (float) (ExpoController.getExpo(oculusSensors.getSmoothedPitch()) / 90.0);
+        double yaw = yawController.getYawMove(droneController, oculusSensors);
+        try {
+        	droneController.getDrone().move((float)joyStickSensors.getRawRool(), (float)pitch, (float)joyStickSensors.getRawHeight(), (float)yaw);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void oculusOnlyControllerLiteration() {
 
         float roll = (float) (ExpoController.getExpo(oculusSensors.getSmoothedRool()) / 90.0);

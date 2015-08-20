@@ -20,10 +20,11 @@ public class Main {
 		joystickSensors.startReceiving();
 		mainController.droneController = droneController;
 		mainController.oculusSensors = oculusSensors;
+		mainController.joyStickSensors = joystickSensors;
 
 		RenderRiftWindow frame = new RenderRiftWindow(mainController);
-
-        //frame.showFrame();
+        frame.showFrame();
+        
 		new RenderManager(droneController, frame);
 	}
 }
