@@ -15,12 +15,11 @@ public class MainController {
     private HeightController heightController = new HeightController();
     private YawController yawController = new YawController();
     boolean contiune = false;
-    ControlModes mode;
+    ControlModes controlMode = ControlModes.JoystickOnly;
 
-    public void startController(ControlModes tempMode) {
-        mode = tempMode;
+    public void startController() {
 
-        switch (mode) {
+        switch (controlMode) {
             case OculusOnly:
                 heightController = new HeightController();
                 yawController.setZero(droneController, oculusSensors);
@@ -93,17 +92,36 @@ public class MainController {
         return heightController;
     }
 
-    public void nextMode() {
-        stopController();
-        switch (mode) {
-            case OculusOnly:
-                startController(ControlModes.OculusYaw);
-                break;
-            case OculusYaw:
-                startController(ControlModes.JoystickOnly);
-                break;
+    public ControlModes getNextMode() {
+        switch (controlMode) {
             case JoystickOnly:
-                startController(ControlModes.OculusOnly);
+                return ControlModes.OculusYaw;
+            case OculusYaw:
+                return ControlModes.OculusYawPitch;
+            case OculusYawPitch:
+                return ControlModes.OculusOnly;
+            case OculusOnly:
+                return ControlModes.JoystickOnly;
         }
+        return null;
+    }
+
+    public ControlModes getNextMode(ControlModes mode) {
+        switch (mode) {
+            case JoystickOnly:
+                return ControlModes.OculusYaw;
+            case OculusYaw:
+                return ControlModes.OculusYawPitch;
+            case OculusYawPitch:
+                return ControlModes.OculusOnly;
+            case OculusOnly:
+                return ControlModes.JoystickOnly;
+        }
+        return null;
+    }
+
+    public void setControlMode(ControlModes mode) {
+        //works only if not already flying!!!
+        if (!droneController.getNavData().isFlying()) controlMode = mode;
     }
 }

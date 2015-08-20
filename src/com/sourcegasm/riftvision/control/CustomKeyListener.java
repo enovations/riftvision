@@ -13,7 +13,7 @@ public class CustomKeyListener {
                 mainController.getHeightController().increaseHeightMove();
             case KeyEvent.VK_DOWN:
                 mainController.getHeightController().decreaseHeightMove();
-            case KeyEvent.VK_RIGHT:
+            case KeyEvent.VK_LEFT:
                 try {
                     mainController.getDroneController().getDrone().takeOff();
                 } catch (IOException e1) {
@@ -21,7 +21,7 @@ public class CustomKeyListener {
                 }
                 mainController.startController();
                 break;
-            case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_RIGHT:
                 mainController.stopController();
                 try {
                     mainController.getDroneController().getDrone().land();
@@ -51,6 +51,9 @@ public class CustomKeyListener {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+                break;
+            case KeyEvent.VK_S:
+                mainController.setControlMode(mainController.getNextMode());
         }
     }
 }
