@@ -43,6 +43,7 @@ public class CustomKeyListener {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+                mainController.startController();
                 break;
             case KeyEvent.VK_T:
                 try {

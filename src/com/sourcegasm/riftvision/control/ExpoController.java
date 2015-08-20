@@ -11,10 +11,10 @@ public class ExpoController {
 			result = -(40 * Math.exp(-0.035 * power) - 40);
 		else
 			result = 40 * Math.exp(0.035 * power) - 40;
-		if (result > 25)
-			return 25;
-		if (result < -25)
-			return -25;
+		if (result > 30)
+			return 30;
+		if (result < -30)
+			return -30;
 		return result;
 	}
 
