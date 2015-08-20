@@ -12,12 +12,12 @@ import java.io.IOException;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		OculusSensors oculusSensors = new OculusSensors();
-		oculusSensors.startReceiving();
-		JoyStickSensors joystickSensors = new JoyStickSensors();
-		joystickSensors.startReceiving();
 		DroneController droneController = new DroneController();
 		MainController mainController = new MainController();
+		OculusSensors oculusSensors = new OculusSensors();
+		oculusSensors.startReceiving();
+		JoyStickSensors joystickSensors = new JoyStickSensors(mainController);
+		joystickSensors.startReceiving();
 		mainController.droneController = droneController;
 		mainController.oculusSensors = oculusSensors;
 

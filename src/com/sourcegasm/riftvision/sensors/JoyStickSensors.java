@@ -1,7 +1,10 @@
 package com.sourcegasm.riftvision.sensors;
 
+import com.sourcegasm.riftvision.control.DroneController;
 import com.sourcegasm.riftvision.control.ExpoController;
+import com.sourcegasm.riftvision.control.MainController;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
@@ -18,6 +21,12 @@ public class JoyStickSensors {
 	private Thread recieverThread = new Thread();
 	private Thread recieverThread2 = new Thread();
 
+	private MainController droneController;
+	
+	public JoyStickSensors(MainController droneController) {
+		this.droneController = droneController;
+	}
+	
 	public void startReceiving() {
 
 		recieverThread = new Thread(new Runnable() {
@@ -63,66 +72,23 @@ public class JoyStickSensors {
 						
 						System.out.println(new String(packet.getData()));
 
-						/*
+						
                         String[] mami_array = new String(packet.getData())
 								.split("\\;");
 
 						if (mami_array.length > 1) {
 
-							if (Integer.parseInt(mami_array[0].trim()) == 1) {
+							if (Integer.parseInt(mami_array[6].trim()) == 1) {
 								try {
-									controller.getDrone().sendEmergencySignal();
-                                    controller.getDrone().clearEmergencySignal();
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
+									droneController.getDroneController().getDrone().takeOff();
+				                } catch (IOException e1) {
+				                    e1.printStackTrace();
+				                }
+								droneController.startController();
 							}
-
-							if (Integer.parseInt(mami_array[3].trim()) == 1) {
-								try {
-									controller.getDrone().land();
-								} catch (IOException e1) {
-									e1.printStackTrace();
-								}
-							}
-
-							else if (Integer.parseInt(mami_array[2].trim()) == 1) {
-								try {
-									controller.getDrone().takeOff();
-								} catch (IOException e1) {
-									e1.printStackTrace();
-								}
-							}
-
-							else if (Integer.parseInt(mami_array[10].trim()) == 1) {
-								flightMode
-										.setMode(FlightMode.eMode.NORMAL_MODE);
-							}
-
-							else if (Integer.parseInt(mami_array[8].trim()) == 1) {
-								flightMode.setMode(FlightMode.eMode.MUHA_MODE);
-							}
-
-							else if (Integer.parseInt(mami_array[6].trim()) == 1) {
-								flightMode.setMode(FlightMode.eMode.TAG_MODE);
-							}
-
-							else if (Integer.parseInt(mami_array[1].trim()) == 1) {
-								try {
-									controller.getDrone().trim();
-								} catch (IOException e1) {
-									e1.printStackTrace();
-								}
-							}
-
-							else if (Integer.parseInt(mami_array[4].trim()) == 1) {
-								controller.getDrone().setCombinedYawMode(true);
-							}
-
-							else if (Integer.parseInt(mami_array[5].trim()) == 1) {
-								controller.getDrone().setCombinedYawMode(false);
-							}
-						 */
+							
+						}
+						 
 												
 					}
 				} catch (Exception e) {

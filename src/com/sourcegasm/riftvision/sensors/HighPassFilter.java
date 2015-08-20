@@ -3,6 +3,7 @@ package com.sourcegasm.riftvision.sensors;
 /**
  * Created by klemen on 18.8.2015.
  */
+@Deprecated
 public class HighPassFilter {
 	private boolean first = true;
 	public double smoothedValue;

@@ -35,11 +35,6 @@ public class OculusSensors {
 		pitchLowFilter = new LowPassFilter(lowPassSmoothing);
 		yawLowFilter = new LowPassFilter(lowPassSmoothing);
 
-		double highPassSmoothing = 1 / 1.05;
-		rollHighFilter = new HighPassFilter(highPassSmoothing);
-		pitchHighFilter = new HighPassFilter(highPassSmoothing);
-		yawHighFilter = new HighPassFilter(highPassSmoothing);
-
 		recieverThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -59,18 +54,6 @@ public class OculusSensors {
 						rawRoll = euler.roll;
 						rawPitch = euler.pitch;
 						rawYaw = euler.yaw;
-
-						/*rollLowFilter.calculate(euler.roll);
-						rollHighFilter.calculate(rollLowFilter.smoothedValue);
-						smoothedRool = rollHighFilter.smoothedValue;
-
-						pitchLowFilter.calculate(euler.pitch);
-						pitchHighFilter.calculate(pitchLowFilter.smoothedValue);
-						smoothedPitch = pitchHighFilter.smoothedValue;
-
-						yawLowFilter.calculate(euler.yaw);
-						yawHighFilter.calculate(yawLowFilter.smoothedValue);
-						smoothedYaw = yawHighFilter.smoothedValue;*/
 						
 						rollLowFilter.calculate(euler.roll);
 						smoothedRool = rollLowFilter.smoothedValue;
