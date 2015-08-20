@@ -45,20 +45,6 @@ public class OculusSensors {
 		recieverThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				String currrentDir = new File(".").getAbsolutePath().replaceAll("/\\.", "");
-				Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-					@Override
-					public void run() {
-						killPython();
-					}
-				}));
-
-				try {
-					Runtime.getRuntime().exec("gksudo python " + currrentDir + "/mami.py");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
 				try {
 					int port = 1234;
 					DatagramSocket dsocket = new DatagramSocket(port);
@@ -119,15 +105,4 @@ public class OculusSensors {
 		return rawYaw;
 	}
 
-	public void stopReceving() {
-		recieverThread.stop();
-	}
-
-	public static void killPython() {
-		try {
-			Runtime.getRuntime().exec("gksudo killall python");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 }
