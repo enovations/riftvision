@@ -123,6 +123,34 @@ public class MainController {
         return null;
     }
 
+    public ControlModes getPreviousMode() {
+        switch (controlMode) {
+            case OculusOnly:
+                return ControlModes.OculusYawPitch;
+            case OculusYawPitch:
+                return ControlModes.OculusYaw;
+            case OculusYaw:
+                return ControlModes.JoystickOnly;
+            case JoystickOnly:
+                return ControlModes.OculusOnly;
+        }
+        return null;
+    }
+
+    public ControlModes getPreviousMode(ControlModes mode) {
+        switch (controlMode) {
+            case OculusOnly:
+                return ControlModes.OculusYawPitch;
+            case OculusYawPitch:
+                return ControlModes.OculusYaw;
+            case OculusYaw:
+                return ControlModes.JoystickOnly;
+            case JoystickOnly:
+                return ControlModes.OculusOnly;
+        }
+        return null;
+    }
+
     public void setControlMode(ControlModes mode) {
         stopController();
         controlMode = mode;
