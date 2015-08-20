@@ -25,7 +25,7 @@ public class Main {
         //mainController.startController();
 
 		RenderRiftWindow frame = new RenderRiftWindow(mainController);
-		//frame.showFrame();
+		frame.showFrame();
 		new RenderManager(droneController, frame);
 	}
 }

@@ -12,9 +12,10 @@ public class YawController {
 
 	public double getYawMove(DroneController droneController, OculusSensors sensors) {
 		double droneYaw = newAngle(droneController.getNavData().getYaw(), droneZero);
-		double oculusYaw = newAngle(sensors.getSmoothedYaw(), oculusZero);
+		double oculusYaw = -newAngle(sensors.getRawYaw(), oculusZero);
 		double result = newAngle(oculusYaw, droneYaw);
-		result /= 180;
+		//System.out.println(droneYaw+", "+oculusYaw+", "+result);
+		result /= 40;
 		if (result > 0.5)
 			return 0.5;
 		if (result < -0.5)
@@ -34,6 +35,6 @@ public class YawController {
 	public void setZero(DroneController droneController, OculusSensors sensors){
         while (droneController.getNavData() == null){}
         droneZero = droneController.getNavData().getYaw();
-        oculusZero = sensors.getSmoothedYaw();
+        oculusZero = sensors.getRawYaw();
 	}
 }
