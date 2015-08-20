@@ -1,5 +1,6 @@
 package com.sourcegasm.riftvision.control;
 
+import com.sourcegasm.riftvision.helper.ControlModes;
 import com.sourcegasm.riftvision.sensors.OculusSensors;
 
 import java.io.IOException;
@@ -14,23 +15,34 @@ public class MainController {
     private HeightController heightController = new HeightController();
     private YawController yawController = new YawController();
     boolean contiune = false;
+    ControlModes mode;
 
-    public void startController() {
-        heightController = new HeightController();
-        yawController.setZero(droneController, oculusSensors);
-        contiune = true;
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (contiune) {
-                    controllerLiteration(false);
-                }
-            }
-        });
-        thread.start();
+    public void startController(ControlModes tempMode) {
+        mode = tempMode;
+
+        switch (mode) {
+            case OculusOnly:
+                heightController = new HeightController();
+                yawController.setZero(droneController, oculusSensors);
+                contiune = true;
+                thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (contiune) {
+                            oculusOnlyControllerLiteration(false);
+                        }
+                    }
+                });
+                thread.start();
+                break;
+            case OculusYaw:
+                break;
+            case JoystickOnly:
+                break;
+        }
     }
 
-    private void controllerLiteration(boolean debug){
+    private void oculusOnlyControllerLiteration(boolean debug) {
 
         float roll = (float) (ExpoController.getExpo(oculusSensors.getSmoothedRool()) / 90.0);
         float pitch = (float) (ExpoController.getExpo(oculusSensors.getSmoothedPitch()) / 90.0);
@@ -79,5 +91,19 @@ public class MainController {
 
     public HeightController getHeightController() {
         return heightController;
+    }
+
+    public void nextMode() {
+        stopController();
+        switch (mode) {
+            case OculusOnly:
+                startController(ControlModes.OculusYaw);
+                break;
+            case OculusYaw:
+                startController(ControlModes.JoystickOnly);
+                break;
+            case JoystickOnly:
+                startController(ControlModes.OculusOnly);
+        }
     }
 }
