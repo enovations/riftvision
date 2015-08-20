@@ -19,7 +19,7 @@ public class CustomKeyListener {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-                mainController.startController(mainController.getDroneController());
+                mainController.startController();
                 break;
             case KeyEvent.VK_LEFT:
                 mainController.stopController();
