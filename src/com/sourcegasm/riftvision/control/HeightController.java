@@ -16,11 +16,11 @@ public class HeightController {
     }
 
     public void increaseHeightMove() {
-        if (up < 100) up += 20;
+        if (up < 100) up += 40;
     }
 
     public void decreaseHeightMove() {
-        if (up > -100) up -= 20;
+        if (up > -100) up -= 40;
     }
 
     public void reset() {
