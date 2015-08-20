@@ -40,7 +40,8 @@ public class AdvancedRiftRenderingSystemTM {
 			int wosd = img.getWidth() * LAYER2_RESOLUTION;
 			int hosd = img.getHeight() * LAYER2_RESOLUTION;
 			Graphics g = layer2.getGraphics();
-			g.setColor(new Color(navdata.isEmergency()?255:0, 0, 0, 120));
+			
+			g.setColor(new Color(navdata.isEmergency()?255:0, 0, 0, 110));
 			g.fillRect(0, hosd - 220, wosd, 40);
 			g.setColor(new Color(255, 255, 255, 255));
 			g.setFont(g.getFont().deriveFont(36.0f));
@@ -51,6 +52,12 @@ public class AdvancedRiftRenderingSystemTM {
 			g.drawImage(new ImageIcon("./res/" + ((navdata.isFlying()) ? "on" : "off") + ".png").getImage(),490, hosd - 218, null);
 			g.drawImage(new ImageIcon("./res/roll.png").getImage(),560, hosd - 218, null);
 			g.drawString((int) (navdata.getRoll()) + "° # " + ((int)navdata.getPitch()) + "°", 610, hosd - 220 + 34);
+			
+			g.drawImage(new ImageIcon("./res/logo.png").getImage(),410, hosd - 150, null);
+			
+			g.setFont(g.getFont().deriveFont(42.0f));
+			g.drawString("Press \"LEFT\" key to take off", 190, 370);
+			
 		}
 
 		BufferedImage layer2_bent = bendForOculus(layer2, img.getWidth() * LAYER2_RESOLUTION,
