@@ -11,7 +11,7 @@ public class MainController {
 	public OculusSensors sensors;
 	private Thread thread;
 	public DroneController droneController;
-	private HeightController heightController;
+	private HeightController heightController = new HeightController();
 
 	public void startController(DroneController tempDroneController) {
 		droneController = tempDroneController;
