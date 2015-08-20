@@ -1,10 +1,6 @@
 package com.sourcegasm.riftvision.render;
 
-import com.codeminders.ardrone.util.BufferedImageVideoListener;
 import com.sourcegasm.riftvision.control.DroneController;
-
-import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
 
 public class RenderManager {
 	public RenderManager(DroneController controller, final RenderRiftWindow frame) {

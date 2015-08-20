@@ -19,7 +19,10 @@ public class MainController {
 
     public void startController() {
 
-    	heightController = new HeightController();
+    	/*heightController = new HeightController();
+        yawController.setZero(droneController, oculusSensors);*/
+
+        heightController = new HeightController();
         yawController.setZero(droneController, oculusSensors);
         contiune = true;
         thread = new Thread(new Runnable() {
@@ -31,6 +34,7 @@ public class MainController {
             }
         });
         thread.start();
+
         /*switch (controlMode) {
             case OculusOnly:
             	
