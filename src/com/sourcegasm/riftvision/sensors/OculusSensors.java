@@ -13,7 +13,7 @@ import com.sourcegasm.riftvision.helper.Quaternion;
  */
 public class OculusSensors {
 
-	private double rawRool;
+	private double rawRoll;
 	private double rawPitch;
 	private double rawYaw;
 
@@ -57,7 +57,7 @@ public class OculusSensors {
 						packet.setLength(buffer.length);
 
 						Euler euler = new Quaternion(line).toEuler();
-						rawRool = euler.roll;
+						rawRoll = euler.roll;
 						rawPitch = euler.pitch;
 						rawYaw = euler.yaw;
 
@@ -94,7 +94,7 @@ public class OculusSensors {
 	}
 
 	public double getRawRool() {
-		return rawRool;
+		return rawRoll;
 	}
 
 	public double getRawPitch() {

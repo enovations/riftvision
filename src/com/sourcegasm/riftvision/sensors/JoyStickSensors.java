@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
+import com.sourcegasm.riftvision.control.ExpoController;
 import com.sourcegasm.riftvision.helper.Euler;
 import com.sourcegasm.riftvision.helper.Quaternion;
 
@@ -13,9 +14,10 @@ import com.sourcegasm.riftvision.helper.Quaternion;
  */
 public class JoyStickSensors {
 
-	private double rawRool;
+	private double rawRoll;
 	private double rawPitch;
 	private double rawYaw;
+	private double rawHeight;
 
 	private Thread recieverThread = new Thread();
 
@@ -31,34 +33,23 @@ public class JoyStickSensors {
 					byte[] buffer = new byte[2048];
 					DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 
-					/*while (true) {
+					while (true) {
 						dsocket.receive(packet);
 
 						String[] mami_array = new String(packet.getData()).split("\\;");
 
 						if (mami_array.length > 1) {
 
-							if (visual.global_main.flightMode.getMode() != FlightMode.eMode.TAG_MODE)
-								pitch = (float) (ExpoController.getExpo(Integer
-										.parseInt(mami_array[1].trim())));
+							rawPitch = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[1].trim())));
 
-							roll = (float) (ExpoController.getExpo(Integer
-									.parseInt(mami_array[0].trim())));
+							rawRoll = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[0].trim())));
 
-							if (visual.global_main.flightMode.getMode() != FlightMode.eMode.TAG_MODE)
-								yaw = (float) (ExpoController.getExpo((Integer
-										.parseInt(mami_array[2].trim()))) / 4.7);
+							rawYaw = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[2].trim()))) / 4.7);
 
-							int mamih = Integer.parseInt(mami_array[3].trim());
-							if (mamih == 2)
-								height = -0.28f;
-							else if (mamih == -1)
-								height = 0.28f;
-							else
-								height = 0;
+							rawHeight = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[3].trim()))) / 4.7);
 
 						}
-					}*/
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -68,7 +59,7 @@ public class JoyStickSensors {
 	}
 
 	public double getRawRool() {
-		return rawRool;
+		return rawRoll;
 	}
 
 	public double getRawPitch() {
