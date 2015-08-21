@@ -4,9 +4,10 @@
 
 ![](http://i.imgur.com/dezFC7R.gif)
 
-RiftVision is a succesor to a previus project called MuhaVision.
+RiftVision is a succesor to a previus project called (MuhaVision)[https://github.com/DzinVision/MuhaVision].
 
-RiftVision enables you to fly a quadcopter(ARDrone) with oculus rift. The picture is streamd to the oculus rift and distorted with engine written with OpenGL. You can controll the dorne by tilting Oculus Rift, or by an external controller.  
+RiftVision enables you to fly a quadcopter(ARDrone) with oculus rift. The picture is streamed to the oculus rift and distorted with engine written in OpenGL. You can controll the drone by tilting Oculus Rift, or by an external controller.
+
 Here are some of the implemanted features:
 
 - [x] Flying
