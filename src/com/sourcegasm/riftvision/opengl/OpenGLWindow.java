@@ -1,18 +1,15 @@
 package com.sourcegasm.riftvision.opengl;
 
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glUseProgram;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
-import static org.lwjgl.system.MemoryUtil.NULL;
+import com.sourcegasm.riftvision.render.RenderManager;
+import org.lwjgl.opengl.GLContext;
 
 import java.awt.image.BufferedImage;
 
-import org.lwjgl.opengl.GLContext;
-
-import com.codeminders.ardrone.NavData;
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL30.glBindVertexArray;
+import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class OpenGLWindow {
 	
@@ -23,31 +20,35 @@ public class OpenGLWindow {
 	private int width = 1280, height = 800;
 
 	public Model leftSide, rightSide;
-	
-	public void start() {
-		running = true;
+
+    public void start(RenderManager renderManager) {
+        running = true;
 		init();
 		
 		long startTime = System.currentTimeMillis();
 		long delta = 0;
 		float interval = 1000f/30f;
-		
-		/*while(running) {
-			long now = System.currentTimeMillis();
+
+        while (running) {
+            long now = System.currentTimeMillis();
 			delta += now - startTime;
 			startTime = now;
-			
-			while(delta >= interval) {
+
+            leftSide.textureID = TextureLoader.loadTexture(renderManager.leftImage);
+            rightSide.textureID = TextureLoader.loadTexture(renderManager.rightImage);
+
+            while(delta >= interval) {
 				update();
 				delta -= interval;
 			}
 			render();
-			
-			if(glfwWindowShouldClose(window) == GL_TRUE) {
+            System.out.println("rendered");
+
+            if(glfwWindowShouldClose(window) == GL_TRUE) {
 				running = false;
 			}
-		}*/
-	}
+        }
+    }
 	
 	public void init() {
 		if(glfwInit() != GL_TRUE) {
