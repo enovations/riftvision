@@ -1,14 +1,10 @@
 package com.sourcegasm.riftvision.control;
 
-import com.sourcegasm.riftvision.helper.ControlModes;
 import com.sourcegasm.riftvision.sensors.JoyStickSensors;
 import com.sourcegasm.riftvision.sensors.OculusSensors;
 
 import java.io.IOException;
 
-/**
- * Created by klemen on 19.8.2015. ^selfish
- */
 public class MainController {
 	
     public OculusSensors oculusSensors;
@@ -16,20 +12,18 @@ public class MainController {
     
     private Thread thread;
     public DroneController droneController;
-    private HeightController heightController = new HeightController();
     private YawController yawController = new YawController();
     boolean contiune = false;
     ControlModes controlMode = ControlModes.JoystickOnly;
 
     public void startController() {
 
-        heightController = new HeightController();
         yawController.setZero(droneController, oculusSensors);
+        contiune = true;
 
         switch (controlMode) {
             case OculusOnly:
             	
-            	contiune = true;
                 thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -44,7 +38,6 @@ public class MainController {
                 
             case OculusYaw:
             	
-            	contiune = true;
                 thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -59,7 +52,6 @@ public class MainController {
                 
             case OculusYawPitch:
             	
-            	contiune = true;
                 thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -74,7 +66,6 @@ public class MainController {
                 
             case JoystickOnly:
             	
-            	contiune = true;
                 thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -144,7 +135,7 @@ public class MainController {
         float pitch = (float) (ExpoController.getExpo(oculusSensors.getSmoothedPitch()) / 90.0);
         double yaw = yawController.getYawMove(droneController, oculusSensors);
             try {
-                droneController.getDrone().move(roll, -pitch, (float) heightController.getHeightMove(), (float)yaw);
+                droneController.getDrone().move(roll, -pitch, (float)joyStickSensors.getRawHeight(), (float)yaw);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -163,7 +154,6 @@ public class MainController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        heightController.reset();
     }
 
     public DroneController getDroneController() {
@@ -171,10 +161,6 @@ public class MainController {
     }
     public YawController getYawController(){
         return yawController;
-    }
-
-    public HeightController getHeightController() {
-        return heightController;
     }
 
     public ControlModes getNextMode() {
@@ -236,7 +222,6 @@ public class MainController {
     public void setControlMode(ControlModes mode) {
         stopController();
         controlMode = mode;
-        System.out.println(controlMode);
         startController();
     }
 }

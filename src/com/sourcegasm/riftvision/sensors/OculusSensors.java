@@ -1,10 +1,10 @@
 package com.sourcegasm.riftvision.sensors;
 
-import com.sourcegasm.riftvision.helper.Euler;
-import com.sourcegasm.riftvision.helper.Quaternion;
-
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+
+import com.sourcegasm.riftvision.math.Euler;
+import com.sourcegasm.riftvision.math.Quaternion;
 
 /**
  * Created by klemen on 18.8.2015.
@@ -23,10 +23,6 @@ public class OculusSensors {
 	private LowPassFilter pitchLowFilter;
 	private LowPassFilter yawLowFilter;
 
-	private HighPassFilter rollHighFilter;
-	private HighPassFilter pitchHighFilter;
-	private HighPassFilter yawHighFilter;
-
 	private Thread recieverThread = new Thread();
 
 	public void startReceiving() {
@@ -41,7 +37,6 @@ public class OculusSensors {
 				try {
 					int port = 1234;
 					DatagramSocket dsocket = new DatagramSocket(port);
-
 
 					while (true) {
 						byte[] buffer = new byte[2048];
@@ -64,6 +59,7 @@ public class OculusSensors {
 						yawLowFilter.calculate(euler.yaw);
 						smoothedYaw = yawLowFilter.smoothedValue;
 					}
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

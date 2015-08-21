@@ -1,4 +1,4 @@
-package com.sourcegasm.riftvision.helper;
+package com.sourcegasm.riftvision.math;
 
 import java.util.regex.Pattern;
 

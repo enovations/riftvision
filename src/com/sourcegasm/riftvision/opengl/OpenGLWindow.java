@@ -20,8 +20,11 @@ public class OpenGLWindow {
 	private int width = 1280, height = 800;
 
 	public Model leftSide, rightSide;
+	
+	public BufferedImage rightImage;
+	public BufferedImage leftImage;
 
-    public void start(RenderManager renderManager) {
+    public void start() {
         running = true;
 		init();
 		
@@ -34,15 +37,14 @@ public class OpenGLWindow {
 			delta += now - startTime;
 			startTime = now;
 
-            leftSide.textureID = TextureLoader.loadTexture(renderManager.leftImage);
-            rightSide.textureID = TextureLoader.loadTexture(renderManager.rightImage);
+            leftSide.textureID = TextureLoader.loadTexture(leftImage);
+            rightSide.textureID = TextureLoader.loadTexture(rightImage);
 
             while(delta >= interval) {
 				update();
 				delta -= interval;
 			}
 			render();
-            System.out.println("rendered");
 
             if(glfwWindowShouldClose(window) == GL_TRUE) {
 				running = false;
@@ -76,6 +78,9 @@ public class OpenGLWindow {
 		glClearColor(0f, 0f, 0f, 1f);
 
 		BufferedImage texture = TextureLoader.loadImage("res/grid.png");
+		
+		leftImage = texture;
+		rightImage = texture;
 		
 		int[] indices = MeshMaker.indices();
 		float[] textureCoords = MeshMaker.textureCoords();

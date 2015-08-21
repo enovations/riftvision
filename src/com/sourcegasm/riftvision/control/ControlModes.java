@@ -1,4 +1,4 @@
-package com.sourcegasm.riftvision.helper;
+package com.sourcegasm.riftvision.control;
 
 /**
  * Created by zigapk on 8/20/15.

@@ -8,22 +8,26 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 
 public class RenderManager {
-    public BufferedImage rightImage;
-    public BufferedImage leftImage;
 
 	public RenderManager(DroneController controller, final OpenGLWindow frame) {
 		controller.getDrone().addImageListener(new BufferedImageVideoListener() {
 			@Override
 			public void imageReceived(BufferedImage image) {
+								
+				//increase brightness
 				RescaleOp rescaleOp = new RescaleOp(1.2f, 15, null);
 				rescaleOp.filter(image, image);
-                rightImage = image;
+				
+				//render OSD
+				BufferedImage osd = OSDRender.renderOSD(image, controller.getNavData());
+				
+				//get sbs and apply it to the gl render
+				SBSBufferedImage sbsimage = OculusLayerRender.renderAllLayersSBS(image, osd);
+				frame.rightImage = sbsimage.getRightImage();
+				frame.leftImage = sbsimage.getLeftImage();
+                
             }
 		});
 	}
-
-    public RenderManager() {
-
-    }
 
 }
