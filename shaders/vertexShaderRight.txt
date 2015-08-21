@@ -36,6 +36,10 @@ void main() {
   
   vec4 newPos = Distort(P, 0.9);
   newPos.x += 0.42;
+  //newPos.y += 0.03;
+  
+  newPos.x += 0.03;
+  
   gl_Position = newPos;
   pass_textureCoordinates = textureCoordinates;
 }

@@ -1,31 +1,7 @@
 package com.sourcegasm.riftvision.opengl;
 
-import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MAJOR;
-import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MINOR;
-import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_CORE_PROFILE;
-import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_FORWARD_COMPAT;
-import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_PROFILE;
-import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
-import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
-import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
-import static org.lwjgl.glfw.GLFW.glfwInit;
-import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
-import static org.lwjgl.glfw.GLFW.glfwPollEvents;
-import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
-import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
-import static org.lwjgl.glfw.GLFW.glfwWindowHint;
-import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_FALSE;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
-import static org.lwjgl.opengl.GL11.GL_TRUE;
-import static org.lwjgl.opengl.GL11.GL_UNSIGNED_INT;
-import static org.lwjgl.opengl.GL11.glBindTexture;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glClearColor;
-import static org.lwjgl.opengl.GL11.glDrawElements;
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL20.glUseProgram;
@@ -34,6 +10,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 import java.awt.image.BufferedImage;
 
+import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.opengl.GLContext;
 
 public class OpenGLWindow {
@@ -43,6 +20,15 @@ public class OpenGLWindow {
 	private long window;
 	
 	private int width = 1280, height = 800;
+	
+	public GLFWKeyCallback keyCallback = new GLFWKeyCallback() {
+		public void invoke(long arg0, int arg1, int arg2, int arg3, int arg4) {
+			if(arg1 == GLFW_KEY_ESCAPE && arg3 == GLFW_PRESS) {
+				System.exit(0);
+			}
+		};
+	};
+	
 
 	public Model leftSide, rightSide;
 	
@@ -89,7 +75,7 @@ public class OpenGLWindow {
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		
-		window = glfwCreateWindow(width, height, "Distortion", NULL, NULL);
+		window = glfwCreateWindow(width, height, "RiftVision", glfwGetPrimaryMonitor() , NULL);
 		
 		if(window == NULL) {
 			System.err.println("Could not create our Window!");
@@ -101,6 +87,8 @@ public class OpenGLWindow {
 		GLContext.createFromCurrent();
 		
 		glClearColor(0f, 0f, 0f, 1f);
+		
+		glfwSetKeyCallback(window, keyCallback);
 
 		BufferedImage texture = TextureLoader.loadImage("res/grid.png");
 		

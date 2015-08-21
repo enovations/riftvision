@@ -31,6 +31,8 @@ public class Main {
 		new RenderManager(droneController, frame);
 		
 		frame.start();
+		
+		System.exit(0);
         
     }
 }
