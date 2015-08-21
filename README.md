@@ -9,13 +9,15 @@ It's almost like MuhaVision 2.0 but mucho bettero. See why at yourslev. There ar
 - [x] flying
 - [x] auto pilot
 - [x] oculus rift
-- [ ] mami support
+- [x] opengl support
+- [x] mami support
 - [ ] windows phone support
 - [ ] stable release
 
 ![](http://www.auplod.com/u/opauld5f883.gif)
  - gksudo (if you don't already have it)
  - PyGame Python library (Debian-like distros: sudo apt-get install python-pygame)
+ - LWJGL
 
 ![](http://i.imgur.com/aw0QuDg.gif)
 
