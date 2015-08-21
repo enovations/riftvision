@@ -4,15 +4,14 @@
 
 ![](http://i.imgur.com/dezFC7R.gif)
 
-It's almost like MuhaVision 2.0 but mucho bettero. See why at yourslev. There are some fiutures of the it:
+It's almost like MuhaVision 2.0 but much better. See why for yourself. Here are some of the feautures:
 
-- [x] flying
-- [x] auto pilot
-- [x] oculus rift
-- [x] opengl support
-- [x] mami support
-- [ ] windows phone support
-- [ ] stable release
+- [x] Flying
+- [x] Oculus Rift
+- [x] OpenGL Support
+- [ ] Auto Pilot
+- [ ] Windows Phone Support
+- [ ] Stable Release
 
 ![](http://www.auplod.com/u/opauld5f883.gif)
  - gksudo (if you don't already have it)
