@@ -1,2 +1,2 @@
-python mami.py &
-python zigatova_mami.py &
+python reader_oculus.py &
+python reader_joystick.py &
