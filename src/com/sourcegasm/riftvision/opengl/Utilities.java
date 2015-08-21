@@ -10,42 +10,43 @@ import java.nio.IntBuffer;
 import org.lwjgl.BufferUtils;
 
 public class Utilities {
-	
+
 	public static String loadAsString(String location) {
-		StringBuilder result  = new StringBuilder();
+		final StringBuilder result = new StringBuilder();
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(location));
+			final BufferedReader reader = new BufferedReader(new FileReader(location));
 			String buffer = "";
-			while((buffer = reader.readLine()) != null) {
+			while ((buffer = reader.readLine()) != null) {
 				result.append(buffer).append("\n");
 			}
 			reader.close();
-		} catch(Exception e) {
+		} catch (final Exception e) {
 			System.err.println(e);
 		}
-		
+
 		return result.toString();
 	}
-	
+
 	public static ByteBuffer createByteBuffer(byte[] array) {
-		ByteBuffer result = ByteBuffer.allocateDirect(array.length).order(ByteOrder.nativeOrder());		
+		final ByteBuffer result = ByteBuffer.allocateDirect(array.length).order(ByteOrder.nativeOrder());
 		result.put(array).flip();
-		
+
 		return result;
 	}
-	
+
 	public static FloatBuffer createFloatBuffer(float[] array) {
-		FloatBuffer result = ByteBuffer.allocateDirect(array.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
+		final FloatBuffer result = ByteBuffer.allocateDirect(array.length << 2).order(ByteOrder.nativeOrder())
+				.asFloatBuffer();
 		result.put(array).flip();
-		
+
 		return result;
 	}
-	
+
 	public static IntBuffer createIntBuffer(int[] array) {
-		IntBuffer buffer = BufferUtils.createIntBuffer(array.length);
+		final IntBuffer buffer = BufferUtils.createIntBuffer(array.length);
 		buffer.put(array);
 		buffer.flip();
-		
+
 		return buffer;
 	}
 }

@@ -6,6 +6,7 @@ import java.net.DatagramSocket;
 
 import com.sourcegasm.riftvision.control.ExpoController;
 import com.sourcegasm.riftvision.control.MainController;
+import com.sourcegasm.riftvision.game.LapTimer;
 
 /**
  * Created by klemen on 18.8.2015.
@@ -20,102 +21,97 @@ public class JoyStickSensors {
 	private Thread recieverThread = new Thread();
 	private Thread recieverThread2 = new Thread();
 
-	private MainController droneController;
-	
-	public JoyStickSensors(MainController droneController) {
+	private final MainController droneController;
+	private final LapTimer timer;
+
+	public JoyStickSensors(MainController droneController, LapTimer timer) {
 		this.droneController = droneController;
+		this.timer = timer;
 	}
-	
+
 	public void startReceiving() {
 
-		recieverThread = new Thread(new Runnable() {
-			@Override
-			public void run() {
+		recieverThread = new Thread(() -> {
 
-				try {
-					DatagramSocket dsocket = new DatagramSocket(1235);
+			try {
+				final DatagramSocket dsocket = new DatagramSocket(1235);
 
-					while (true) {
-						
-						DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
-						dsocket.receive(packet);
+				while (true) {
 
-						String[] mami_array = new String(packet.getData()).split("\\;");
-						
-						if (mami_array.length == 4) {
-							rawPitch = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[3].trim())));
-							rawRoll = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[2].trim())));
-							rawYaw = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[0].trim()))));
-                            rawHeight = (float) ((Integer.parseInt(mami_array[1].trim()))) / -170.0;
-                        }
-												
+					final DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
+					dsocket.receive(packet);
+
+					final String[] mami_array = new String(packet.getData()).split("\\;");
+
+					if (mami_array.length == 4) {
+						rawPitch = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[3].trim())));
+						rawRoll = (float) (ExpoController.getJoyStickExpo(Integer.parseInt(mami_array[2].trim())));
+						rawYaw = (float) (ExpoController.getJoyStickExpo((Integer.parseInt(mami_array[0].trim()))));
+						rawHeight = ((Integer.parseInt(mami_array[1].trim()))) / -170.0;
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
+
 				}
+			} catch (final Exception e) {
+				e.printStackTrace();
 			}
 		});
 		recieverThread.start();
-		
-		recieverThread2 = new Thread(new Runnable() {
-			@Override
-			public void run() {
 
-				try {
-					DatagramSocket dsocket = new DatagramSocket(1236);
+		recieverThread2 = new Thread(() -> {
 
-					while (true) {
-						
-						DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
-						dsocket.receive(packet);
+			try {
+				final DatagramSocket dsocket = new DatagramSocket(1236);
 
-                        //System.out.println(new String(packet.getData()));
+				while (true) {
 
-						
-                        String[] mami_array = new String(packet.getData())
-								.split("\\;");
+					final DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
+					dsocket.receive(packet);
 
-						if (mami_array.length > 1) {
+					final String[] mami_array = new String(packet.getData()).split("\\;");
 
-							if (Integer.parseInt(mami_array[6].trim()) == 1) {
-								try {
-									droneController.getDroneController().getDrone().takeOff();
-				                } catch (IOException e1) {
-				                    e1.printStackTrace();
-				                }
-								droneController.startController();
-							}else if (Integer.parseInt(mami_array[7].trim()) == 1) {
-								droneController.stopController();
-				                try {
-				                	droneController.getDroneController().getDrone().land();
-				                } catch (IOException e1) {
-				                    e1.printStackTrace();
-				                }
-							}else if (Integer.parseInt(mami_array[1].trim()) == 1) {
-								try {
-									droneController.getDroneController().getDrone().trim();
-				                } catch (IOException e1) {
-				                    e1.printStackTrace();
-				                }
-							}else if (Integer.parseInt(mami_array[2].trim()) == 1) {
-								try {
-									droneController.getDroneController().getDrone().clearEmergencySignal();
-				                } catch (IOException e1) {
-				                    e1.printStackTrace();
-				                }
-							}else if (Integer.parseInt(mami_array[5].trim()) == 1) {
-								droneController.setControlMode(droneController.getNextMode());
-							}else if (Integer.parseInt(mami_array[4].trim()) == 1) {
-								droneController.setControlMode(droneController.getPreviousMode());
+					if (mami_array.length > 1) {
+
+						if (Integer.parseInt(mami_array[6].trim()) == 1) {
+							try {
+								droneController.getDroneController().getDrone().takeOff();
+							} catch (final IOException e11) {
+								e11.printStackTrace();
 							}
-							
+							droneController.startController();
+						} else if (Integer.parseInt(mami_array[7].trim()) == 1) {
+							droneController.stopController();
+							try {
+								droneController.getDroneController().getDrone().land();
+							} catch (final IOException e12) {
+								e12.printStackTrace();
+							}
+						} else if (Integer.parseInt(mami_array[1].trim()) == 1) {
+							try {
+								droneController.getDroneController().getDrone().trim();
+							} catch (final IOException e13) {
+								e13.printStackTrace();
+							}
+						} else if (Integer.parseInt(mami_array[2].trim()) == 1) {
+							try {
+								droneController.getDroneController().getDrone().clearEmergencySignal();
+							} catch (final IOException e14) {
+								e14.printStackTrace();
+							}
+						} else if (Integer.parseInt(mami_array[5].trim()) == 1) {
+							droneController.setControlMode(droneController.getNextMode());
+						} else if (Integer.parseInt(mami_array[4].trim()) == 1) {
+							droneController.setControlMode(droneController.getPreviousMode());
+						} else if (Integer.parseInt(mami_array[0].trim()) == 1) {
+							timer.startTimer();
+						} else if (Integer.parseInt(mami_array[3].trim()) == 1) {
+							timer.stopTimer();
 						}
-						 
-												
+
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
+
 				}
+			} catch (final Exception e) {
+				e.printStackTrace();
 			}
 		});
 		recieverThread2.start();
@@ -132,8 +128,8 @@ public class JoyStickSensors {
 	public double getRawYaw() {
 		return rawYaw;
 	}
-	
-	public double getRawHeight(){
+
+	public double getRawHeight() {
 		return rawHeight;
 	}
 

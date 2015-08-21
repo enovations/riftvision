@@ -26,43 +26,40 @@ public class OculusSensors {
 	private Thread recieverThread = new Thread();
 
 	public void startReceiving() {
-		double lowPassSmoothing = 2;
+		final double lowPassSmoothing = 2;
 		rollLowFilter = new LowPassFilter(lowPassSmoothing);
 		pitchLowFilter = new LowPassFilter(lowPassSmoothing);
 		yawLowFilter = new LowPassFilter(lowPassSmoothing);
 
-		recieverThread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					int port = 1234;
-					DatagramSocket dsocket = new DatagramSocket(port);
+		recieverThread = new Thread(() -> {
+			try {
+				final int port = 1234;
+				final DatagramSocket dsocket = new DatagramSocket(port);
 
-					while (true) {
-						byte[] buffer = new byte[2048];
-						DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-						dsocket.receive(packet);
-						String line = new String(buffer, 0, packet.getLength());
-						packet.setLength(buffer.length);
+				while (true) {
+					final byte[] buffer = new byte[2048];
+					final DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+					dsocket.receive(packet);
+					final String line = new String(buffer, 0, packet.getLength());
+					packet.setLength(buffer.length);
 
-						Euler euler = new Quaternion(line).toEuler();
-						rawRoll = euler.roll;
-						rawPitch = euler.pitch;
-						rawYaw = euler.yaw;
-						
-						rollLowFilter.calculate(euler.roll);
-						smoothedRool = rollLowFilter.smoothedValue;
-						
-						pitchLowFilter.calculate(euler.pitch);
-						smoothedPitch = pitchLowFilter.smoothedValue;
+					final Euler euler = new Quaternion(line).toEuler();
+					rawRoll = euler.roll;
+					rawPitch = euler.pitch;
+					rawYaw = euler.yaw;
 
-						yawLowFilter.calculate(euler.yaw);
-						smoothedYaw = yawLowFilter.smoothedValue;
-					}
-					
-				} catch (Exception e) {
-					e.printStackTrace();
+					rollLowFilter.calculate(euler.roll);
+					smoothedRool = rollLowFilter.smoothedValue;
+
+					pitchLowFilter.calculate(euler.pitch);
+					smoothedPitch = pitchLowFilter.smoothedValue;
+
+					yawLowFilter.calculate(euler.yaw);
+					smoothedYaw = yawLowFilter.smoothedValue;
 				}
+
+			} catch (final Exception e) {
+				e.printStackTrace();
 			}
 		});
 		recieverThread.start();

@@ -15,7 +15,7 @@ public class Quaternion {
 	}
 
 	public Quaternion(String csvLine) {
-		String[] qs = csvLine.split(Pattern.quote(";"));
+		final String[] qs = csvLine.split(Pattern.quote(";"));
 		q0 = Double.parseDouble(qs[0]);
 		q1 = -Double.parseDouble(qs[3]);
 		q2 = -Double.parseDouble(qs[1]);
@@ -23,12 +23,12 @@ public class Quaternion {
 	}
 
 	public Euler toEuler() {
-		Euler result = new Euler();
+		final Euler result = new Euler();
 		result.roll = Math.atan2(2 * (q1 * q0 + q2 * q3), (q0 * q0) - (q1 * q1) - (q2 * q2) + (q3 * q3)) * 180.0
-                / Math.PI;
+				/ Math.PI;
 		result.pitch = -Math.asin(2 * (q1 * q3 - q2 * q0)) * 180.0 / Math.PI;
 		result.yaw = Math.atan2(2 * (q3 * q0 + q1 * q2), (q0 * q0) + (q1 * q1) - (q2 * q2) - (q3 * q3)) * 180.0
-                / Math.PI;
+				/ Math.PI;
 		return result;
 	}
 }

@@ -5,7 +5,7 @@ package com.sourcegasm.riftvision.control;
  */
 
 public class ExpoController {
-	
+
 	public static double getExpo(double power) {
 		double result;
 		if (power < 0)
@@ -18,7 +18,7 @@ public class ExpoController {
 			return -30;
 		return result;
 	}
-	
+
 	public static double getJoyStickExpo(double power) {
 		if (power < 0)
 			return -(0.6 * Math.exp(-0.035 * power) - 0.6);

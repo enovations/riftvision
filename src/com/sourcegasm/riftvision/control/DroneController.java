@@ -5,7 +5,6 @@ import java.net.UnknownHostException;
 
 import com.codeminders.ardrone.ARDrone;
 import com.codeminders.ardrone.NavData;
-import com.codeminders.ardrone.NavDataListener;
 
 //Controlling the quad copter based on enabled mode
 
@@ -20,17 +19,11 @@ public class DroneController {
 			drone = new ARDrone();
 			drone.connect();
 
-			drone.addNavDataListener(new NavDataListener() {
+			drone.addNavDataListener(fdata -> data = fdata);
 
-				@Override
-				public void navDataReceived(NavData fdata) {
-					data = fdata;
-				}
-			});
-
-		} catch (UnknownHostException e) {
+		} catch (final UnknownHostException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
 	}

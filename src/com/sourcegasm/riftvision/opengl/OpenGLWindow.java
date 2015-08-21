@@ -9,111 +9,127 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.opengl.GLContext;
 
+import com.sourcegasm.riftvision.control.DroneController;
+import com.sourcegasm.riftvision.control.MainController;
+
 public class OpenGLWindow {
-	
+
 	public boolean running = true;
-	
+
 	private long window;
-	
-	private int width = 1280, height = 800;
-	
-	public GLFWKeyCallback keyCallback = new GLFWKeyCallback() {
-		public void invoke(long arg0, int arg1, int arg2, int arg3, int arg4) {
-			if(arg1 == GLFW_KEY_ESCAPE && arg3 == GLFW_PRESS) {
-				System.exit(0);
-			}
-		};
-	};
-	
+
+	private final int width = 1280, height = 800;
+
+	public GLFWKeyCallback keyCallback = null;
 
 	public Model leftSide, rightSide;
-	
+
 	public BufferedImage rightImage;
 	public BufferedImage leftImage;
+	
+	public OpenGLWindow(final MainController droneController) {
+		keyCallback = new GLFWKeyCallback() {
+			@Override
+			public void invoke(long arg0, int arg1, int arg2, int arg3, int arg4) {
+				if (arg1 == GLFW_KEY_ESCAPE && arg3 == GLFW_PRESS) {
+					running = false;
+				}else if (arg1 == GLFW_KEY_SPACE && arg3 == GLFW_PRESS) {
+					droneController.stopController();
+					try {
+						droneController.getDroneController().getDrone().land();
+					} catch (final IOException e12) {
+						e12.printStackTrace();
+					}
+				}
+			};
+		};
+	}
 
-    public void start() {
-        running = true;
+	public void start() {
+		running = true;
 		init();
-		
+
 		long startTime = System.currentTimeMillis();
 		long delta = 0;
-		float interval = 1000f/30f;
+		final float interval = 1000f / 30f;
 
-        while (running) {
-            long now = System.currentTimeMillis();
+		while (running) {
+			final long now = System.currentTimeMillis();
 			delta += now - startTime;
 			startTime = now;
 
-            leftSide.textureID = TextureLoader.loadTexture(leftImage);
-            rightSide.textureID = TextureLoader.loadTexture(rightImage);
+			leftSide.textureID = TextureLoader.loadTexture(leftImage);
+			rightSide.textureID = TextureLoader.loadTexture(rightImage);
 
-            while(delta >= interval) {
+			while (delta >= interval) {
 				update();
 				delta -= interval;
 			}
 			render();
 
-            if(glfwWindowShouldClose(window) == GL_TRUE) {
+			if (glfwWindowShouldClose(window) == GL_TRUE) {
 				running = false;
 			}
-        }
-    }
-	
+		}
+	}
+
 	public void init() {
-		if(glfwInit() != GL_TRUE) {
+		if (glfwInit() != GL_TRUE) {
 			System.err.println("GLFW initialization failed");
 		}
-		
+
 		glfwDefaultWindowHints();
 		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		
-		window = glfwCreateWindow(width, height, "RiftVision", glfwGetPrimaryMonitor() , NULL);
-		
-		if(window == NULL) {
+
+		window = glfwCreateWindow(width, height, "RiftVision", glfwGetPrimaryMonitor(), NULL);
+
+		if (window == NULL) {
 			System.err.println("Could not create our Window!");
 		}
-		
+
 		glfwMakeContextCurrent(window);
 		glfwSwapInterval(1);
-		
+
 		GLContext.createFromCurrent();
-		
+
 		glClearColor(0f, 0f, 0f, 1f);
-		
+
 		glfwSetKeyCallback(window, keyCallback);
 
-		BufferedImage texture = TextureLoader.loadImage("res/grid.png");
-		
+		final BufferedImage texture = TextureLoader.loadImage("res/grid.png");
+
 		leftImage = texture;
 		rightImage = texture;
-		
-		int[] indices = MeshMaker.indices();
-		float[] textureCoords = MeshMaker.textureCoords();
 
-		leftSide = new Model(MeshMaker.leftMesh(), indices, textureCoords, texture, "shaders/vertexShaderLeft.txt", "shaders/fragmentShader.txt");
-		rightSide = new Model(MeshMaker.rightMesh(), indices, textureCoords, texture, "shaders/vertexShaderRight.txt", "shaders/fragmentShader.txt");
+		final int[] indices = MeshMaker.indices();
+		final float[] textureCoords = MeshMaker.textureCoords();
+
+		leftSide = new Model(MeshMaker.leftMesh(), indices, textureCoords, texture, "shaders/vertexShaderLeft.txt",
+				"shaders/fragmentShader.txt");
+		rightSide = new Model(MeshMaker.rightMesh(), indices, textureCoords, texture, "shaders/vertexShaderRight.txt",
+				"shaders/fragmentShader.txt");
 	}
-	
+
 	public void update() {
 		glfwPollEvents();
 	}
-	
+
 	public void render() {
 		glfwSwapBuffers(window);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		
-		//Left side
+		// Left side
 		glUseProgram(leftSide.programID);
-		
+
 		glBindVertexArray(leftSide.vao);
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
@@ -125,11 +141,10 @@ public class OpenGLWindow {
 		glBindVertexArray(0);
 
 		glUseProgram(0);
-		
-		
-		//Right side
+
+		// Right side
 		glUseProgram(rightSide.programID);
-			
+
 		glBindVertexArray(rightSide.vao);
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
@@ -139,7 +154,7 @@ public class OpenGLWindow {
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		glBindVertexArray(0);
-		
+
 		glUseProgram(0);
 	}
 }

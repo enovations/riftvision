@@ -3,15 +3,15 @@ package com.sourcegasm.riftvision.render;
 import java.awt.image.BufferedImage;
 
 public class SBSBufferedImage {
-	
+
 	public BufferedImage rightImage;
 	public BufferedImage leftImage;
-	
-	public SBSBufferedImage(BufferedImage rightImage, BufferedImage leftImage){
+
+	public SBSBufferedImage(BufferedImage rightImage, BufferedImage leftImage) {
 		this.rightImage = rightImage;
 		this.leftImage = leftImage;
 	}
-	
+
 	public BufferedImage getRightImage() {
 		return rightImage;
 	}

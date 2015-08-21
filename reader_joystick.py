@@ -16,6 +16,7 @@ except pygame.error:
 	print 'no joystick found.'
 
 UDP_IP = "127.0.0.1"
+#UDP_IP = "192.168.5.1"
 UDP_PORT1 = 1235
 UDP_PORT2 = 1236
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

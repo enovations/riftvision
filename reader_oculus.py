@@ -16,7 +16,7 @@ hmd,
 )
 
 UDP_IP = "127.0.0.1"
-#UDP_IP = "192.168.91.131"
+#UDP_IP = "192.168.5.1"
 UDP_PORT = 1234
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
