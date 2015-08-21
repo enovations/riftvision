@@ -21,4 +21,5 @@ It's almost like MuhaVision 2.0 but much better. See why for yourself. Here are 
 ![](http://i.imgur.com/aw0QuDg.gif)
 
 The code is distributet under the MIT licence.
-LWJGL licence is property of Lightweight Java Game Library Project. Licence is available [here](http://www.lwjgl.org/license).
+LWJGL licence is property of Lightweight Java Game Library Project.  
+Licence is available [here](http://www.lwjgl.org/license).
