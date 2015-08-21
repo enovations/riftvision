@@ -1,16 +1,13 @@
 package com.sourcegasm.riftvision;
 
+import java.io.IOException;
+
 import com.sourcegasm.riftvision.control.DroneController;
 import com.sourcegasm.riftvision.control.MainController;
 import com.sourcegasm.riftvision.opengl.OpenGLWindow;
 import com.sourcegasm.riftvision.render.RenderManager;
 import com.sourcegasm.riftvision.sensors.JoyStickSensors;
 import com.sourcegasm.riftvision.sensors.OculusSensors;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Main {
 
@@ -30,9 +27,10 @@ public class Main {
 		mainController.joyStickSensors = joystickSensors;
 
 		OpenGLWindow frame = new OpenGLWindow();
-		frame.start();
 		
 		new RenderManager(droneController, frame);
+		
+		frame.start();
         
     }
 }

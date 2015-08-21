@@ -1,13 +1,6 @@
 package com.sourcegasm.riftvision.render;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
-import javax.swing.ImageIcon;
-
-import com.codeminders.ardrone.NavData;
 
 public class OculusLayerRender {
 
@@ -22,8 +15,8 @@ public class OculusLayerRender {
 		leftEye.getGraphics().drawImage(droneSource, 0, 0, imageW, imageH, null);
 		rightEye.getGraphics().drawImage(droneSource, 0, 0, imageW, imageH, null);
 		
-		leftEye.getGraphics().drawImage(osdRender, 10, 0, imageW, imageH, null);
-		rightEye.getGraphics().drawImage(osdRender, -10, 0, imageW, imageH, null);
+		leftEye.getGraphics().drawImage(osdRender, 18, 0, imageW, imageH, null);
+		rightEye.getGraphics().drawImage(osdRender, -18, 0, imageW, imageH, null);
 		
 		SBSBufferedImage sbsimage = new SBSBufferedImage(rightEye, leftEye);
 		

@@ -24,8 +24,6 @@ public class OSDRender {
 			g.setColor(new Color(255, 255, 255, 150));
 			g.drawLine(0, imageH - 220-1, imageW, imageH - 220-1);
 			g.drawLine(0, imageH - 220+41, imageW, imageH - 220+41);
-			//g.drawLine(0, imageH - 220-2, imageW, imageH - 220-2);
-			//g.drawLine(0, imageH - 220+42, imageW, imageH - 220+42);
 			g.setColor(new Color(255, 255, 255, 255));
 			g.setFont(g.getFont().deriveFont(36.0f));
 			g.drawImage(new ImageIcon("./res/batt_" + ((navData.getBattery() < 25) ? "off" : "on") + ".png").getImage(),120, imageH - 218, null);
@@ -41,7 +39,7 @@ public class OSDRender {
 			g.setFont(g.getFont().deriveFont(42.0f));
 			
 			if(!navData.isFlying())
-				g.drawString("Press \"LEFT\" key to take off", 190, 370);
+				g.drawString("Press \"L2\" key to take off", 200, 370);
 			
 			g.setColor(new Color(0, 0, 0, 90));
 			g.fillRect(imageW-320+50, 130, imageW-(imageW-320+50), 100);		

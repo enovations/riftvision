@@ -1,11 +1,11 @@
 package com.sourcegasm.riftvision.sensors;
 
-import com.sourcegasm.riftvision.control.ExpoController;
-import com.sourcegasm.riftvision.control.MainController;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+
+import com.sourcegasm.riftvision.control.ExpoController;
+import com.sourcegasm.riftvision.control.MainController;
 
 /**
  * Created by klemen on 18.8.2015.

@@ -1,9 +1,9 @@
 package com.sourcegasm.riftvision.control;
 
+import java.io.IOException;
+
 import com.sourcegasm.riftvision.sensors.JoyStickSensors;
 import com.sourcegasm.riftvision.sensors.OculusSensors;
-
-import java.io.IOException;
 
 public class MainController {
 	

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 
 import com.codeminders.ardrone.ARDrone;
-import com.codeminders.ardrone.ARDrone.VideoChannel;
 import com.codeminders.ardrone.NavData;
 import com.codeminders.ardrone.NavDataListener;
 
