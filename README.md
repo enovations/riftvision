@@ -20,7 +20,7 @@ Here are some of the implemanted features:
 ![](http://www.auplod.com/u/opauld5f883.gif)
  - gksudo (if you don't already have it)
  - PyGame Python library (Debian-like distros: sudo apt-get install python-pygame)
- - LWJGL
+ - LWJGL (version compatible with Linux is already located in the lib directory of the project, including natives)
 
 ![](http://i.imgur.com/aw0QuDg.gif)
 
