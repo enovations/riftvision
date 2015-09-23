@@ -11,9 +11,9 @@ RiftVision enables you to fly a quadcopter(ARDrone) with oculus rift. The pictur
 Here are some of the implemanted features:
 
 - [x] Flying
+- - [ ] Auto Pilot
 - [x] Oculus Rift
 - [x] OpenGL Support
-- [ ] Auto Pilot
 - [ ] Windows Phone Support
 - [ ] Stable Release
 
