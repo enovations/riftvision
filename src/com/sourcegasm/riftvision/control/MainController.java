@@ -145,8 +145,10 @@ public class MainController {
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
-		thread.stop();
-		thread = null;
+		if(thread != null){
+			thread.stop();
+			thread = null;
+		}
 	}
 
 	public DroneController getDroneController() {

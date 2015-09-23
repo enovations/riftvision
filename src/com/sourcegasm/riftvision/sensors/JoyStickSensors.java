@@ -98,6 +98,7 @@ public class JoyStickSensors {
 								e14.printStackTrace();
 							}
 						} else if (Integer.parseInt(mami_array[5].trim()) == 1) {
+							System.out.println("asdf");
 							droneController.setControlMode(droneController.getNextMode());
 						} else if (Integer.parseInt(mami_array[4].trim()) == 1) {
 							droneController.setControlMode(droneController.getPreviousMode());

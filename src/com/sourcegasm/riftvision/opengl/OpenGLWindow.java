@@ -90,8 +90,8 @@ public class OpenGLWindow {
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+		//window = glfwCreateWindow(width, height, "RiftVision", glfwGetMonitors().get(1), NULL);
 		window = glfwCreateWindow(width, height, "RiftVision", glfwGetPrimaryMonitor(), NULL);
-
 		if (window == NULL) {
 			System.err.println("Could not create our Window!");
 		}
